@@ -1,0 +1,2 @@
+# epitech-create-activies
+
