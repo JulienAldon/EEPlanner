@@ -61,6 +61,9 @@ if __name__ == '__main__':
     date_activity            = input("Please enter the date of activity (%Y-%m-%d %H)   : ")
     custom_duration_activity = input("Please enter the duration of activity (in hours)  : ")
     title_activity           = input("Please enter the title of activity (# auto added) : ")
+    participants_activity    = input("Please enter the number of participants           : ")
+    location_activity        = input("Please enter the location of the activity (D/T/R) : ")
+
 
     if type_activity == "T":
         category_id_activity = "12544"
@@ -93,6 +96,16 @@ if __name__ == '__main__':
         search_tag = "Hackathon"
         duration_activity = 3
 
+    if location_activity == "D":
+        location_activity = "FR/LYN/Virtuel/Discord-V01-Karen-Sparck-Jones"
+        type_location_activity = "salle_de_cours"
+    elif location_activity == "T":
+        location_activity = "FR/LYN/Virtuel/Teams"
+        type_location_activity = "salle_machine"
+    elif location_activity == "R":
+        location_activity = "FR/LYN/Campus-Lyon-Jean-Mace/101-George-Boole"
+        type_location_activity = "salle_machine"
+
     date_activity = datetime.datetime.strptime(date_activity, '%Y-%m-%d %H')
 
     if custom_duration_activity:
@@ -111,6 +124,8 @@ if __name__ == '__main__':
     print("{:02d}:00".format(duration_activity))
     print(begin)
     print(end)
+    print(location_activity)
+    print(participants_activity,"participants")
 
 
     actity_creation = requests.post('https://intra.epitech.eu/module/2020/B-INN-000/LYN-0-1/create?format=json', 
@@ -149,8 +164,9 @@ if __name__ == '__main__':
                     actity_planify = requests.post(link_acti+'planify?format=json', 
                         data = {
                             'start': begin,
-                            'location': "FR/LYN/Virtuel/Teams",
-                            'type': "salle_machine",
+                            'location': location_activity,
+                            'type': type_location_activity,
+                            'seats': int(participants_activity)
                             }, 
                         cookies=cj)
                     print(actity_planify)
