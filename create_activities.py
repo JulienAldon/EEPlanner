@@ -4,7 +4,8 @@ import datetime
 from datetime import timedelta
 import pprint
 import requests
-import browsercookie
+# import browsercookie
+import browser_cookie3
 import statistics
 import copy
 from bs4 import BeautifulSoup
@@ -14,7 +15,7 @@ dict_attendance = {}
 all_sessions = []
 url_create_activity = "https://intra.epitech.eu/module/2020/B-INN-000/LYN-0-1/create?format=json"
 url_hub = "https://intra.epitech.eu/module/2020/B-INN-000/LYN-0-1/"
-cj = browsercookie.load()
+cj = browser_cookie3.firefox()
 
 # <option value="12544">Talk</option>
 # <option value="58">Workshop</option>
