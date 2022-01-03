@@ -50,6 +50,28 @@ def get_id_activities():
                 list_id.append(int(i))
             id_hackathon = int(max(list_id)) + 1
 
+    try:
+        id_talk
+    except:
+        id_talk=1
+    try:
+        id_workshop
+    except:
+        id_workshop=1
+    try:
+        id_project
+    except:
+        id_project=1
+    try:
+        id_experience
+    except:
+        id_experience=1
+    try:
+        id_hackathon
+    except:
+        id_hackathon=1
+
+
     return id_talk, id_workshop, id_project, id_experience, id_hackathon
 
 
@@ -57,12 +79,14 @@ if __name__ == '__main__':
 
     id_talk, id_workshop, id_project, id_experience, id_hackathon = get_id_activities()
 
+    # print(id_talk, id_workshop, id_project, id_experience, id_hackathon)
+
     type_activity            = input("Please enter the type of activity (T/W/P/E/H)     : ")
     date_activity            = input("Please enter the date of activity (%Y-%m-%d %H)   : ")
     custom_duration_activity = input("Please enter the duration of activity (in hours)  : ")
     title_activity           = input("Please enter the title of activity (# auto added) : ")
     participants_activity    = input("Please enter the number of participants           : ")
-    location_activity        = input("Please enter the location of the activity (D/T/R) : ")
+    location_activity        = input("Please enter the location of the activity (D/T/E) : ")
 
 
     if type_activity == "T":
@@ -102,7 +126,7 @@ if __name__ == '__main__':
     elif location_activity == "T":
         location_activity = "FR/LYN/Virtuel/Teams"
         type_location_activity = "salle_machine"
-    elif location_activity == "R":
+    elif location_activity == "E":
         location_activity = "FR/LYN/Campus-Lyon-Jean-Mace/101-George-Boole"
         type_location_activity = "salle_machine"
 
@@ -118,7 +142,6 @@ if __name__ == '__main__':
 
     begin = date_activity.strftime("%Y-%m-%d %H:00:00")
     end = (date_activity + timedelta(hours=duration_activity)).strftime("%Y-%m-%d %H:00:00")
-
 
     print(title_activity)
     print("{:02d}:00".format(duration_activity))
@@ -141,7 +164,7 @@ if __name__ == '__main__':
         }, 
         cookies=cj)
 
-    # print(actity_creation.text)
+
 
     if actity_creation.status_code == 200:
 
@@ -171,8 +194,8 @@ if __name__ == '__main__':
                     print(actity_planify)
 
 
-    # else:
-    #     print(actity_creation.text)
+    else:
+        print(actity_creation.text)
 
 
 
