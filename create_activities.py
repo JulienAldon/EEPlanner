@@ -13,8 +13,8 @@ from bs4 import BeautifulSoup
 attendance_list = []
 dict_attendance = {}
 all_sessions = []
-url_create_activity = "https://intra.epitech.eu/module/2020/B-INN-000/LYN-0-1/create?format=json"
-url_hub = "https://intra.epitech.eu/module/2020/B-INN-000/LYN-0-1/"
+url_create_activity = "https://intra.epitech.eu/module/2021/B-INN-000/LYN-0-1/create?format=json"
+url_hub = "https://intra.epitech.eu/module/2021/B-INN-000/LYN-0-1/"
 cj = browser_cookie3.firefox()
 
 # <option value="12544">Talk</option>
@@ -25,7 +25,7 @@ cj = browser_cookie3.firefox()
 
 def get_id_activities():
 
-    r_activities = requests.get("https://intra.epitech.eu/module/2020/B-INN-000/LYN-0-1/numbycategory?format=json",cookies=cj)
+    r_activities = requests.get("https://intra.epitech.eu/module/2021/B-INN-000/LYN-0-1/numbycategory?format=json",cookies=cj)
 
     for key,value in r_activities.json().items():
         list_id = []
@@ -127,8 +127,7 @@ if __name__ == '__main__':
     print(location_activity)
     print(participants_activity,"participants")
 
-
-    actity_creation = requests.post('https://intra.epitech.eu/module/2020/B-INN-000/LYN-0-1/create?format=json', 
+    actity_creation = requests.post('https://intra.epitech.eu/module/2021/B-INN-000/LYN-0-1/create?format=json', 
         data = {
         'category[id]': category_id_activity,
         'nb_group': "1",
