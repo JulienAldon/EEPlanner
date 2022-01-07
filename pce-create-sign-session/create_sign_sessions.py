@@ -60,6 +60,8 @@ def planify_sessions(dates, hours):
 selected_formations = ['codac', 'wac1', 'wac2', 'premsc', 'msc1', 'msc2']
 selected_dates = ['2022-01-17']
 planified_sessions = planify_sessions(selected_dates, planification_hours)
-
-for session in planified_sessions:
-    register_students(selected_formations, session)
+if planified_sessions:
+    for session in planified_sessions:
+        register_students(selected_formations, session)
+else:
+    print("No session planified please make sure you are logged in or Set the env variable INTRANET_TOKEN")
