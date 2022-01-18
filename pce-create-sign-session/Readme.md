@@ -21,14 +21,34 @@ Le script peut ajouter plusieurs formations à une même session.
 Le projet à peu de dépendances mais pour des raisons de maintenabilité un environnement pipenv, un `Pipefile`, est fourni avec le projet.
 
 ## Installer les dépendances
-```
+```sh
 pipenv install
 ```
 
 # Executer le script
+```sh
+pipenv run pyton create_sign_sessions.py --promotion wac1 "2022-01-17" "2022-01-18"
 ```
-pipenv run pyton create_sign_sessions.py
+
+```sh
+Usage: 
+create_sign_sessions.py [-h] --promotion promotion [--events [events ...]] [dates in %Y-%m-%d ...]
+
+Select promotions and dates or events
+
+Positional arguments:
+  dates in %Y-%m-%d
+
+Optional arguments:
+  -h, --help            show this help message and exit
+  --promotion promotion, -p promotion
+  --events [events ...]
 ```
+
+Une fois le script éxécuté avec des dates et les différentes sessions instanciés, le script doit afficher sur la sorte standard une liste d'evenements créés.
+
+Vous pouvez reutiliser cette liste pour inscrire les differentes promotions aux activités créées à l'aide du flag `--events`
+
 ## Prérequis
 Pour que le script fonctionne correctement, un dossier `Promotions` contenant les listes des apprenants par formations est requis. Par default, les fichier doivent être només comme suit :
 ```
@@ -41,7 +61,9 @@ Pour que le script fonctionne correctement, un dossier `Promotions` contenant le
     'wac2': 'WAC2.csv'
 }
 ```
-# Informations pratiques
+
+
+<!-- # Informations pratiques V1
 Pour le moment un peu de configuration au sein du script est nécéssaire 
 
 ## Si l'on veux choisir les formations à inscrire de force aux sessions créés
@@ -56,4 +78,4 @@ Il faut modifier la variable `selected_dates` et y ajouter les dates sous le for
 Ce script utilise deux manière de s'authentifier :
 - En allant chercher la variable d'environnement `INTRANET_TOKEN` (c'est à l'utilisateur de renseigner dans son environnement son token d'intra)
 - Si le token n'est pas présent dans l'environnement le script va chercher le `cookie` de firefox si il existe
-sinon le script fera une erreur.
+sinon le script fera une erreur. -->
