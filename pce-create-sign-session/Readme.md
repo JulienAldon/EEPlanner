@@ -61,7 +61,22 @@ Pour que le script fonctionne correctement, un dossier `Promotions` contenant le
     'wac2': 'WAC2.csv'
 }
 ```
+# Electron
+L'application a une interface graphique.
 
+## Build
+```
+cd front
+npx electron-packager . pce-create-sign-session --platform=linux
+```
+Un dossier `pce-create-sign-session-linux-x64` devrait être généré.
+
+Une fois l'application electron build, vous pouvez executer le programme :
+
+```
+sh launch.sh
+```
+Un token d'autologin sera demandé avant toute choses, puis le serveur python se lance et l'application electron s'ouvre.
 
 <!-- # Informations pratiques V1
 Pour le moment un peu de configuration au sein du script est nécéssaire 

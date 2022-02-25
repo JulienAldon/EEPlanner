@@ -1,10 +1,22 @@
-import browser_cookie3
 import requests
 import csv
 import os
 import argparse
 import sys
 import datetime
+from pydantic import BaseModel
+from fastapi import FastAPI
+
+class Item(BaseModel):
+    date: str
+    codac: bool
+    premsc: bool
+    msc1: bool
+    msc2: bool
+    wac1: bool
+    wac2: bool
+
+app = FastAPI()
 
 activity_url = f'/module/2021/W-ADM-007/LYN-0-1/acti-505014/'
 promotions = {
@@ -75,30 +87,55 @@ def valid_event(s):
         msg = "Not a valid event format"
         raise argparse.ArgumentTypeError(msg)
 
-parser = argparse.ArgumentParser(description='Select promotions and dates')
-parser.add_argument('--promotion', '-p', metavar="promotion", type=str, required=True, action='append', choices=promotions.keys())
-parser.add_argument('dates', metavar="dates in %Y-%m-%d", type=valid_date, nargs='*', default=[])
-parser.add_argument('--events', metavar="events", type=valid_event, nargs='*', default=[])
-promotion_arg = parser.parse_args(sys.argv[1:])
-selected_formations = promotion_arg.promotion
-selected_dates = promotion_arg.dates
-selected_event = promotion_arg.events
+@app.post('/create_session')
+def create_sessions(sessions: list[Item]):
+    for s in sessions:
+        selected = []
+        if s.wac1:
+            selected.append("wac1")
+        if s.wac2:
+            selected.append("wac2")
+        if s.msc1:
+            selected.append("msc1")
+        if s.msc2:
+            selected.append("msc2")
+        if s.premsc:
+            selected.append("premsc")
+        if s.codac:
+            selected.append("codac")
+        planned = planify_sessions([s.date], planification_hours)
+        print(planned)
+        for a in planned:
+            register_students(selected, a)
+        print("Server done with requests : All session planned !")
+    return {}
 
-print("dates", selected_dates)
-print("event", selected_event)
-print("formations", selected_formations)
 
-if len(selected_event) > 0:
-    planified_sessions = selected_event
-else:
-    print(selected_dates)
-    planified_sessions = planify_sessions(selected_dates, planification_hours)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Select promotions and dates')
+    parser.add_argument('--promotion', '-p', metavar="promotion", type=str, required=True, action='append', choices=promotions.keys())
+    parser.add_argument('dates', metavar="dates in %Y-%m-%d", type=valid_date, nargs='*', default=[])
+    parser.add_argument('--events', metavar="events", type=valid_event, nargs='*', default=[])
+    promotion_arg = parser.parse_args(sys.argv[1:])
+    selected_formations = promotion_arg.promotion
+    selected_dates = promotion_arg.dates
+    selected_event = promotion_arg.events
 
-if planified_sessions:
-    sessions = []
-    for session in planified_sessions:
-        sessions.append(session)
-        register_students(selected_formations, session)
-    print(*sessions, sep=" ")
-else:
-    print("No session planified please make sure you are logged in or Set the env variable INTRANET_AUTOLOGIN")
+    print("dates", selected_dates)
+    print("event", selected_event)
+    print("formations", selected_formations)
+
+    if len(selected_event) > 0:
+        planified_sessions = selected_event
+    else:
+        print(selected_dates)
+        planified_sessions = planify_sessions(selected_dates, planification_hours)
+
+    if planified_sessions:
+        sessions = []
+        for session in planified_sessions:
+            sessions.append(session)
+            register_students(selected_formations, session)
+        print(*sessions, sep=" ")
+    else:
+        print("No session planified please make sure you are logged in or Set the env variable INTRANET_AUTOLOGIN")
