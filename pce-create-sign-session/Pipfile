@@ -4,9 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-browser-cookie3 = "*"
 requests = "*"
-fastapi = {extras = ["all"], version = "*"}
+pycairo = "*"
+pygobject = "*"
+glib = "*"
+cx-freeze = "*"
 
 [dev-packages]
 

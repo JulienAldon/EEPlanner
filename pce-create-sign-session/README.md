@@ -1,10 +1,9 @@
-# PCE Sign Session planner
+# EventOtron
 Ce script sert à planifier des session de l'activitée `W-ADM-007/LYN-0-1/acti-505014` pour les signatures de présence des formations courtes à Epitech Lyon.
 
 ## Les formations supportés
 - Wac1
 - Wac2
-- Codac
 - Pre-msc
 - Msc1
 - Msc2
@@ -49,48 +48,12 @@ Une fois le script éxécuté avec des dates et les différentes sessions instan
 
 Vous pouvez reutiliser cette liste pour inscrire les differentes promotions aux activités créées à l'aide du flag `--events`
 
-## Prérequis
-Pour que le script fonctionne correctement, un dossier `Promotions` contenant les listes des apprenants par formations est requis. Par default, les fichier doivent être només comme suit :
+# Lancer l'interface (dev)
 ```
-{
-    'codac': 'CODAC.csv',
-    'msc1': 'MSC1.csv',
-    'msc2': 'MSC2.csv',
-    'premsc': 'PreMSC.csv',
-    'wac1': 'WAC1.csv',
-    'wac2': 'WAC2.csv'
-}
+pipenv run python interface.py
 ```
-# Electron
-L'application a une interface graphique.
 
-## Build
+# Build l'interface
 ```
-cd front
-npx electron-packager . pce-create-sign-session --platform=linux
+pipenv run python setup.py build
 ```
-Un dossier `pce-create-sign-session-linux-x64` devrait être généré.
-
-Une fois l'application electron build, vous pouvez executer le programme :
-
-```
-sh launch.sh
-```
-Un token d'autologin sera demandé avant toute choses, puis le serveur python se lance et l'application electron s'ouvre.
-
-<!-- # Informations pratiques V1
-Pour le moment un peu de configuration au sein du script est nécéssaire 
-
-## Si l'on veux choisir les formations à inscrire de force aux sessions créés
-Il faut modifier la variable `selected_formation` et y ajouter les noms des formations en minuscule.
-
-## Si l'on veux choisir la date de création des sessions
-Il faut modifier la variable `selected_dates` et y ajouter les dates sous le format `%YYYY-%MM-%DD` 
-
-**Exemple :** `'2022-01-17'`
-
-## Pour l'authentification à l'intranet
-Ce script utilise deux manière de s'authentifier :
-- En allant chercher la variable d'environnement `INTRANET_TOKEN` (c'est à l'utilisateur de renseigner dans son environnement son token d'intra)
-- Si le token n'est pas présent dans l'environnement le script va chercher le `cookie` de firefox si il existe
-sinon le script fera une erreur. -->
