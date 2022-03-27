@@ -15,14 +15,9 @@ Format authorized :
 http is replaced by https
 """
 
-def exec_regex(reg, tstr):
-    matches = re.finditer(reg, tstr, re.MULTILINE)
-    for match in matches:
-        if match:
-            return True
-    return False
-
 class Handler:
+    """GTK event handler class connected to builder signal
+    """
     def __init__(self, app):
         self.application = app
 

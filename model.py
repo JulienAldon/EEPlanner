@@ -20,6 +20,8 @@ PLANIFICATION_HOURS = [
 ]
 
 def exec_regex(reg, tstr):
+    """return true if reg is found in tstr false otherwise
+    """
     matches = re.finditer(reg, tstr, re.MULTILINE)
     for match in matches:
         if match:
@@ -27,14 +29,14 @@ def exec_regex(reg, tstr):
     return False
 
 class Intra:
+    """Intra exchange facilities, a token must be set and valid before calling any other methods
+    """
     def __init__(self, token="", planification_hours=PLANIFICATION_HOURS):
         self.token = Intra.check_autologin(token)
         self.planification_hours = planification_hours
     
     def set_token(self, token):
-        print('token set', token)
         self.token = Intra.check_autologin(token)
-        print('token set', self.token)
         return self.token
 
     def set_planification_hours(self, hours):
@@ -54,6 +56,14 @@ class Intra:
         return False
 
     def get_promotions(self, selected_promotions):
+        """fetch selected promotions student list
+        selected_promotions can be:
+            - msc1
+            - msc2
+            - wac1
+            - wac2
+            - premsc
+        """
         promotions = []
         nb_items = 0
         total = 1
@@ -67,6 +77,8 @@ class Intra:
         return promotions
 
     def register_students(self, selected_promotions, event):
+        """register selected_students to each event given in parameter
+        """
         if not self.token:
             print(self.token)
             print('Error : token is not valid')
@@ -88,6 +100,8 @@ class Intra:
         return (req.status_code, req.json())
 
     def planify_sessions(self, dates):
+        """create events for each timestamps in the current schedule (dates & self.planification_hours)
+        """
         if not self.token:
             print(self.token)
             print("Error : token is not valid")
