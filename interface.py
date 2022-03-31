@@ -25,6 +25,9 @@ class Handler:
         Gtk.main_quit()
 
     def onSendForm(self, button):
+        if not self.application.planning_hours or len(self.application.planning_hours) <= 0:
+            self.application.hours.forall(self.onAddWidget)
+        self.application.intra.set_planification_hours(self.application.planning_hours)
         if not self.application.intra_autologin.get_text():
             self.application.error_dialog_window(
                 "Error : no Epitech intranet autologin token provided.",
@@ -39,7 +42,6 @@ class Handler:
             )
             return
         self.application.intra.set_token(token)
-
         if self.application.progress.get_fraction() == 0.0:
             thread = threading.Thread(target=self.application.planify)
             thread.daemon = True
@@ -47,6 +49,20 @@ class Handler:
         else:
             self.application.error_dialog_window("Error : cannot start job, another one is already running.")
             return
+
+    def onAddWidget(self, widget):
+        if widget.get_active():
+            self.application.planning_hours.append(widget.get_label())
+
+    def onAddHour(self, button):
+        new_label = self.application.new_hour_label.get_text()
+        if not Intra.check_hour_format(new_label):
+            self.application.error_dialog_window('Error : entry must be a correct hour format')
+            return
+        new_checkbox = Gtk.CheckButton(label=self.application.new_hour_label.get_text())
+        self.application.set_planning_hours([])
+        self.application.hours.add(new_checkbox)
+        new_checkbox.show()
 
 class Application:
     """
@@ -77,6 +93,11 @@ class Application:
         Application.set_default_settings(DAYS, self.enabled_promotions)
         self.set_dates(datetime.date.today() + datetime.timedelta(days=7))
 
+        self.hours = self.builder.get_object('hours_selector')
+        self.new_hour_label = self.builder.get_object('InputHour')
+
+        self.planning_hours = []
+
     @staticmethod
     def set_default_settings(days, day):
         """set default settings for checkbox inside the GUI
@@ -93,6 +114,9 @@ class Application:
             if a == 'Vendredi':
                 day[a]['msc1'].set_active(True)
                 day[a]['msc2'].set_active(True)
+
+    def set_planning_hours(self, hours):
+        self.planning_hours = hours
 
     def set_dates(self, current_day):
         """Set current week by giving a day, the week will start at the closest monday  

@@ -43,6 +43,12 @@ class Intra:
         self.planification_hours = hours
 
     @staticmethod
+    def check_hour_format(hour):
+        if not exec_regex(r'^([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$', hour):
+            return False
+        return True
+
+    @staticmethod
     def check_autologin(autologin):
         if exec_regex(r'^http://', autologin):
             autologin = autologin.replace('http', 'https')
@@ -102,6 +108,7 @@ class Intra:
     def planify_sessions(self, dates):
         """create events for each timestamps in the current schedule (dates & self.planification_hours)
         """
+        print(self.planification_hours)
         if not self.token:
             print(self.token)
             print("Error : token is not valid")

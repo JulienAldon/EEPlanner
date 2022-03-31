@@ -57,3 +57,8 @@ pipenv run python interface.py
 ```
 pipenv run python setup.py build
 ```
+
+# TODO
+- [ ] Permettre à l'utilisateur de cocher les jours de création des activitées
+- [ ] Permettre à l'utilisateur de spécifier les heures de planification
+- [ ] Permettre à l'utilisateur de spécifier l'activitée dans laquelle créer des evenements

@@ -9,6 +9,7 @@ pycairo = "*"
 pygobject = "*"
 glib = "*"
 cx-freeze = "*"
+pgi = "*"
 
 [dev-packages]
 
