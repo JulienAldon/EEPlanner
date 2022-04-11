@@ -2,8 +2,8 @@ BUILDDIR	= docs/build/singlehtml
 
 all:
 	$(MAKE) -C docs singlehtml
-	cp -r $(BUILDDIR)/_static static
-	cp $(BUILDDIR)/index.html index.html
+	cp -r $(BUILDDIR)/_static .
+	cp $(BUILDDIR)/index.html .
 
 .PHONY: clean
 
