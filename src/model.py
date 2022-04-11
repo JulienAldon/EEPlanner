@@ -14,7 +14,7 @@ class EventPlanner():
         :returns: Registered students or false otherwise
         :rtype: typing.Optional(list[str])
         """
-        if not promotions or len(promotions) == 0:
+        if not promotions or len(promotions) == 0 or not event or len(event) == 0:
             return None
         students = self.intranet.getStudents(promotions)
         if not students:
