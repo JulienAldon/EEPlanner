@@ -128,3 +128,5 @@ dmypy.json
 pyvenv.cfg
 
 .DS_Store
+
+mockdata.py
