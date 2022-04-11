@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventPlanner 0.1.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="#">EventPlanner 0.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EventPlanner 0.1.1 documentation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-eventplanner-s-documentation">
+<h1>Welcome to EventPlanner’s documentation!<a class="headerlink" href="#welcome-to-eventplanner-s-documentation" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="epitecheventplanner">
+<h1>EpitechEventPlanner<a class="headerlink" href="#epitecheventplanner" title="Permalink to this headline">¶</a></h1>
+<p>Planificateur d’evenements automatique pour l’activitée <cite>W-ADM-007/LYN-0-1/acti-505014</cite></p>
+<div class="toctree-wrapper compound">
+<span id="document-modules"></span><div class="section" id="src">
+<h2>src<a class="headerlink" href="#src" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<span id="document-interface"></span><div class="section" id="module-interface">
+<span id="interface-module"></span><h3>interface module<a class="headerlink" href="#module-interface" title="Permalink to this headline">¶</a></h3>
+<p>GUI interface class created with pyGTK</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="interface.Application">
+<em class="property"><span class="pre">class</span><span class="w">  </span></em><span class="sig-prename descclassname"><span class="pre">interface.</span></span><span class="sig-name descname"><span class="pre">Application</span></span><a class="headerlink" href="#interface.Application" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Application for GTK window using Glade</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Application.errorDialogWindow">
+<span class="sig-name descname"><span class="pre">errorDialogWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secondary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Application.errorDialogWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a dialog with a custom message and optional secondary message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_msg</strong> (<em>str</em>) – Message to display as title</p></li>
+<li><p><strong>secondary</strong> (<em>str</em>) – Message to display as description</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Application.planifyAndRegister">
+<span class="sig-name descname"><span class="pre">planifyAndRegister</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Application.planifyAndRegister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call model method to planify and register students to the planified sessions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Application.resetProgress">
+<span class="sig-name descname"><span class="pre">resetProgress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Application.resetProgress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset progress bar</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Application.setDates">
+<span class="sig-name descname"><span class="pre">setDates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_day</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Application.setDates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set current week by giving a day, the week will start at the closest monday</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>current_day</strong> (<em>&lt;class 'datetime.date'&gt;</em>) – current day</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Application.setDefaultSettings">
+<em class="property"><span class="pre">static</span><span class="w">  </span></em><span class="sig-name descname"><span class="pre">setDefaultSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">days</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Application.setDefaultSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>set default settings for checkbox inside the GUI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>days</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Days of the Week</p></li>
+<li><p><strong>day</strong> (<em>list</em><em>[</em><em>&lt;Gtk.CheckButton object&gt;</em><em>]</em>) – Checkbuttons sorted by day</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Application.setPlanningHours">
+<span class="sig-name descname"><span class="pre">setPlanningHours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hours</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Application.setPlanningHours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setter for planning hours</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hours</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – hours to add to planning (format ‘%HH-%MM-%SS’)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Application.updateProgress">
+<span class="sig-name descname"><span class="pre">updateProgress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Application.updateProgress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update progress bar</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>i</strong> (<em>int</em>) – progression (between 1 and 5)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="interface.Handler">
+<em class="property"><span class="pre">class</span><span class="w">  </span></em><span class="sig-prename descclassname"><span class="pre">interface.</span></span><span class="sig-name descname"><span class="pre">Handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>GTK event handler class connected to builder signal</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Handler.onAddHour">
+<span class="sig-name descname"><span class="pre">onAddHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Handler.onAddHour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Handler.onAddWidget">
+<span class="sig-name descname"><span class="pre">onAddWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Handler.onAddWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Handler.onDestroy">
+<span class="sig-name descname"><span class="pre">onDestroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Handler.onDestroy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Handler.onSendForm">
+<span class="sig-name descname"><span class="pre">onSendForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Handler.onSendForm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-intranet"></span><div class="section" id="module-intranet">
+<span id="intranet-module"></span><h3>intranet module<a class="headerlink" href="#module-intranet" title="Permalink to this headline">¶</a></h3>
+<p>Intranet interface (Intranet) and implementation (Intra) for communication with Epitech Intranet</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="intranet.Intra">
+<em class="property"><span class="pre">class</span><span class="w">  </span></em><span class="sig-prename descclassname"><span class="pre">intranet.</span></span><span class="sig-name descname"><span class="pre">Intra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#intranet.Intranet" title="intranet.Intranet"><code class="xref py py-class docutils literal notranslate"><span class="pre">intranet.Intranet</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intra.createEvent">
+<span class="sig-name descname"><span class="pre">createEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intra.createEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create event at a given date for a given activity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>activity</strong> (<em>str</em>) – Activity url under which to create event</p></li>
+<li><p><strong>date</strong> (<em>str</em>) – Date of the event to create (format ‘YYYY-MM-DD’)</p></li>
+<li><p><strong>hour</strong> (<em>str</em>) – hour of the start of the event to create (format ‘HH-MM-SS’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A code of the created event</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intra.getEvents">
+<span class="sig-name descname"><span class="pre">getEvents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intra.getEvents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get All events for a given activity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>activity</strong> (<em>str</em>) – Activity url</p></li>
+<li><p><strong>date</strong> (<em>Optional</em><em>(</em><em>str</em><em>)</em>) – date of event to get</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Events code of the activity</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intra.getRegisteredStudents">
+<span class="sig-name descname"><span class="pre">getRegisteredStudents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intra.getRegisteredStudents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get All students registered to the given event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>str</em>) – Event url</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Registered students</p>
+</dd>
+<dt class="field-odd">Rtye</dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intra.getStudents">
+<span class="sig-name descname"><span class="pre">getStudents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">promotions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intra.getStudents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of students of the given promotions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>promotions</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Promotions code (‘msc1’, ‘msc2’, ‘wac1’, ‘wac2’, ‘premsc’)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Students or None in case of error</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Optional</em>[list[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intra.registerStudents">
+<span class="sig-name descname"><span class="pre">registerStudents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">students</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intra.registerStudents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register students to given event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>str</em>) – Epitech intranet url (format: ‘event-xxxxxx’)</p></li>
+<li><p><strong>students</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Students to register.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None on failure, the list of students registered on success</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Optional</em>(list[str])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intra.set_token">
+<span class="sig-name descname"><span class="pre">set_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intra.set_token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="intranet.Intranet">
+<em class="property"><span class="pre">class</span><span class="w">  </span></em><span class="sig-prename descclassname"><span class="pre">intranet.</span></span><span class="sig-name descname"><span class="pre">Intranet</span></span><a class="headerlink" href="#intranet.Intranet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Interface of the communication between model and intranet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – Must be set before anything</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intranet.createEvent">
+<em class="property"><span class="pre">abstract</span><span class="w">  </span><span class="pre">async</span><span class="w">  </span></em><span class="sig-name descname"><span class="pre">createEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intranet.createEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create event at a given date for a given activity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>activity</strong> (<em>str</em>) – Activity url under which to create event</p></li>
+<li><p><strong>date</strong> (<em>str</em>) – Date of the event to create (format ‘YYYY-MM-DD’)</p></li>
+<li><p><strong>hour</strong> (<em>str</em>) – hour of the start of the event to create (format ‘HH-MM-SS’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A code of the created event</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intranet.getEvents">
+<em class="property"><span class="pre">abstract</span><span class="w">  </span><span class="pre">async</span><span class="w">  </span></em><span class="sig-name descname"><span class="pre">getEvents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intranet.getEvents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get All events for a given activity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>activity</strong> (<em>str</em>) – Activity url</p></li>
+<li><p><strong>date</strong> (<em>Optional</em><em>(</em><em>str</em><em>)</em>) – date of event to get</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Events code of the activity</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intranet.getRegisteredStudents">
+<em class="property"><span class="pre">abstract</span><span class="w">  </span><span class="pre">async</span><span class="w">  </span></em><span class="sig-name descname"><span class="pre">getRegisteredStudents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intranet.getRegisteredStudents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get All students registered to the given event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>str</em>) – Event url</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Registered students</p>
+</dd>
+<dt class="field-odd">Rtye</dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intranet.getStudents">
+<em class="property"><span class="pre">abstract</span><span class="w">  </span><span class="pre">async</span><span class="w">  </span></em><span class="sig-name descname"><span class="pre">getStudents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">promotions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intranet.getStudents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of students of the given promotions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>promotions</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Promotions code (‘msc1’, ‘msc2’, ‘wac1’, ‘wac2’, ‘premsc’)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Students or None in case of error</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Optional</em>[list[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="intranet.Intranet.registerStudents">
+<em class="property"><span class="pre">abstract</span><span class="w">  </span><span class="pre">async</span><span class="w">  </span></em><span class="sig-name descname"><span class="pre">registerStudents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">students</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#intranet.Intranet.registerStudents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register students to given event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>str</em>) – Epitech intranet url (format: ‘event-xxxxxx’)</p></li>
+<li><p><strong>students</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Students to register.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None on failure, the list of students registered on success</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Optional</em>(list[str])</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-checkers"></span><div class="section" id="module-checkers">
+<span id="checkers-module"></span><h3>checkers module<a class="headerlink" href="#module-checkers" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="checkers.check_autologin">
+<span class="sig-prename descclassname"><span class="pre">checkers.</span></span><span class="sig-name descname"><span class="pre">check_autologin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">autologin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#checkers.check_autologin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check Autologin format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>autologin</strong> (<em>str</em>) – An Epitech Intranet autologin url (found under the administration tab on the Epitech intranet)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A correctly formated autologin url if the format is correct, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="checkers.check_hour_format">
+<span class="sig-prename descclassname"><span class="pre">checkers.</span></span><span class="sig-name descname"><span class="pre">check_hour_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hour</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#checkers.check_hour_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check hour format
+:param hour: Hour format (HH-MM-SS)
+:returns: A boolean, True if the format is correct, False otherwise</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="checkers.execRegex">
+<span class="sig-prename descclassname"><span class="pre">checkers.</span></span><span class="sig-name descname"><span class="pre">execRegex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#checkers.execRegex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if regex match in string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params regex</dt>
+<dd class="field-odd"><p>A regex</p>
+</dd>
+<dt class="field-even">Params string</dt>
+<dd class="field-even"><p>A string to match the <em>regex</em></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean, True if <em>regex</em> is found in <em>string</em> False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span id="document-model"></span><div class="section" id="module-model">
+<span id="model-module"></span><h3>model module<a class="headerlink" href="#module-model" title="Permalink to this headline">¶</a></h3>
+<p>Model between intranet interface and GUI application</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.EventPlanner">
+<em class="property"><span class="pre">class</span><span class="w">  </span></em><span class="sig-prename descclassname"><span class="pre">model.</span></span><span class="sig-name descname"><span class="pre">EventPlanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intranet</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.EventPlanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="model.EventPlanner.planify_sessions">
+<span class="sig-name descname"><span class="pre">planify_sessions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.EventPlanner.planify_sessions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create pce sign event given a list of dates and list of hours</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dates</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – All dates to planify</p></li>
+<li><p><strong>hours</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Hours to planify</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.EventPlanner.students_registration">
+<span class="sig-name descname"><span class="pre">students_registration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">promotions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.EventPlanner.students_registration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register promotion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>str</em>) – Complete event URL</p></li>
+<li><p><strong>promotions</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – promotions to register (‘described in Constants file’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Registered students or false otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Optional</em>(list[str])</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-modules">src</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-interface">interface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-intranet">intranet module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-checkers">checkers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-model">model module</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="#">EventPlanner 0.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EventPlanner 0.1.1 documentation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Julien.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
