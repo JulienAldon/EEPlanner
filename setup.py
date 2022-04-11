@@ -8,5 +8,5 @@ setup(
     version="0.1.1",
     description="Créer des event sur une activitée donnée",
     options={"build_exe": build_exe_options},
-    executables=[Executable("interface.py", target_name="EpitechEventPlanner")],
+    executables=[Executable("src/interface.py", target_name="EpitechEventPlanner")],
 )

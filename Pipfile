@@ -12,6 +12,7 @@ cx-freeze = "*"
 pgi = "*"
 
 [dev-packages]
+sphinx = "*"
 
 [requires]
 python_version = "3.9"
