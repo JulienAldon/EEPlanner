@@ -2,7 +2,11 @@ import os
 import argparse
 import sys
 import datetime
-from model import Intra, PROMOTIONS
+from constants import PROMOTIONS, ACTIVITY_URL
+from model import EventPlanner
+from intranet import Intra
+
+planified_hours = ['09:00:00', '17:00:00']
 
 if __name__ == "__main__":
     def valid_date(s):
@@ -42,19 +46,20 @@ if __name__ == "__main__":
     print(f"Event : {selected_event}")
     print(f"Formations : {selected_formations}")
 
-    intra = Intra(cj)
+    t = Intra(cj)
+    intra = EventPlanner(t)
 
     if len(selected_event) > 0:
         planified_sessions = selected_event
     else:
         print(selected_dates)
-        planified_sessions = intra.planify_sessions(selected_dates)
+        planified_sessions = intra.planify_sessions(selected_dates, planified_hours)
 
     if planified_sessions:
         sessions = []
         for session in planified_sessions:
             sessions.append(session)
-            intra.register_students(selected_formations, session)
+            intra.register_students(ACTIVITY_URL + session, selected_formations)
         print(*sessions, sep=" ")
     else:
         print("No session planified please make sure you are logged in or Set the env variable INTRANET_AUTOLOGIN")
