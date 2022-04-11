@@ -31,25 +31,25 @@ class Handler:
         if not self.application.planning_hours or len(self.application.planning_hours) <= 0:
             self.application.hours.forall(self.onAddWidget)
         if not self.application.intra_autologin.get_text():
-            self.application.error_dialog_window(
+            self.application.errorDialogWindow(
                 "Error : no Epitech intranet autologin token provided.",
                 "Find it under the administration tab on the Epitech intranet !"
             )
             return
         token = check_autologin(self.application.intra_autologin.get_text())
         if not token:
-            self.application.error_dialog_window(
+            self.application.errorDialogWindow(
                 "Error : invalid Epitech intranet autologin token format.",
                 FORMAT_ERROR_MESSAGE
             )
             return
         self.application.thrower.set_token(token)
         if self.application.progress.get_fraction() == 0.0:
-            thread = threading.Thread(target=self.application.planify)
+            thread = threading.Thread(target=self.application.planifyAndRegister)
             thread.daemon = True
             thread.start()
         else:
-            self.application.error_dialog_window("Error : cannot start job, another one is already running.")
+            self.application.errorDialogWindow("Error : cannot start job, another one is already running.")
             return
 
     def onAddWidget(self, widget):
@@ -59,10 +59,10 @@ class Handler:
     def onAddHour(self, button):
         new_label = self.application.new_hour_label.get_text()
         if not check_hour_format(new_label):
-            self.application.error_dialog_window('Error : entry must be a correct hour format')
+            self.application.errorDialogWindow('Error : entry must be a correct hour format')
             return
         new_checkbox = Gtk.CheckButton(label=self.application.new_hour_label.get_text())
-        self.application.set_planning_hours([])
+        self.application.setPlanningHours([])
         self.application.hours.add(new_checkbox)
         new_checkbox.show()
 
@@ -93,8 +93,8 @@ class Application:
                 'premsc': self.builder.get_object(day+'PreMsc'),
             } for day in DAYS
         }
-        Application.set_default_settings(DAYS, self.enabled_promotions)
-        self.set_dates(datetime.date.today()) # HACK: change nb days if not correct date
+        Application.setDefaultSettings(DAYS, self.enabled_promotions)
+        self.setDates(datetime.date.today()) # HACK: change nb days if not correct date
 
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
@@ -102,7 +102,7 @@ class Application:
         self.planning_hours = []
 
     @staticmethod
-    def set_default_settings(days, day):
+    def setDefaultSettings(days, day):
         """set default settings for checkbox inside the GUI
 
         :param days: Days of the Week
@@ -123,7 +123,7 @@ class Application:
                 day[a]['msc1'].set_active(True)
                 day[a]['msc2'].set_active(True)
 
-    def set_planning_hours(self, hours):
+    def setPlanningHours(self, hours):
         """Setter for planning hours
 
         :param hours: hours to add to planning (format '%HH-%MM-%SS')
@@ -131,7 +131,7 @@ class Application:
         """
         self.planning_hours = hours
 
-    def set_dates(self, current_day):
+    def setDates(self, current_day):
         """Set current week by giving a day, the week will start at the closest monday  
 
         :param current_day: current day
@@ -155,7 +155,7 @@ class Application:
         self.builder.get_object("JeudiDate").set_label(self.dates['Jeudi'])
         self.builder.get_object("VendrediDate").set_label(self.dates['Vendredi'])
 
-    def error_dialog_window(self, error_msg, secondary=None):
+    def errorDialogWindow(self, error_msg, secondary=None):
         """Display a dialog with a custom message and optional secondary message
 
         :param error_msg: Message to display as title
@@ -177,7 +177,7 @@ class Application:
         md.run()
         md.destroy()
 
-    def update_progress(self, i):
+    def updateProgress(self, i):
         """Update progress bar
 
         :param i: progression (between 1 and 5)
@@ -187,17 +187,17 @@ class Application:
         self.progress.set_fraction(0.2 * i)
         return False
 
-    def reset_progress(self):
+    def resetProgress(self):
         """Reset progress bar
         """
         self.progress.set_fraction(0)
 
-    def planify(self):
+    def planifyAndRegister(self):
         """Call model method to planify and register students to the planified sessions
         """
         count = 1
         for a in DAYS:
-            GLib.idle_add(self.update_progress, count)
+            GLib.idle_add(self.updateProgress, count)
             count += 1
             selected = []
             for i in self.enabled_promotions[a].items():
@@ -207,8 +207,8 @@ class Application:
             for t in planned:
                 print("interface", t)
                 self.intra.students_registration(ACTIVITY_URL + t, selected)
-        self.reset_progress()
-        GLib.idle_add(self.error_dialog_window, 'Job finished ')
+        self.resetProgress()
+        GLib.idle_add(self.errorDialogWindow, 'Job finished ')
 
 if __name__ == "__main__":
     App = Application()
