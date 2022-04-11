@@ -6,6 +6,11 @@
 Welcome to EventPlanner's documentation!
 ========================================
 
+EpitechEventPlanner
+===================
+Planificateur d'evenements automatique pour l'activitée `W-ADM-007/LYN-0-1/acti-505014`
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -13,6 +18,3 @@ Welcome to EventPlanner's documentation!
    modules
 
 
-EpitechEventPlanner
-===================
-Planificateur d'evenements automatique pour l'activitée `W-ADM-007/LYN-0-1/acti-505014`
