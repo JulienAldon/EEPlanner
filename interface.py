@@ -3,8 +3,11 @@ import threading
 import datetime
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
-from model import Intra
+from model import EventPlanner
+from intranet import Intra
+from checkers import check_autologin, check_hour_format
 import re
+from constants import ACTIVITY_URL
 
 DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
 FORMAT_ERROR_MESSAGE = """
@@ -27,21 +30,20 @@ class Handler:
     def onSendForm(self, button):
         if not self.application.planning_hours or len(self.application.planning_hours) <= 0:
             self.application.hours.forall(self.onAddWidget)
-        self.application.intra.set_planification_hours(self.application.planning_hours)
         if not self.application.intra_autologin.get_text():
             self.application.error_dialog_window(
                 "Error : no Epitech intranet autologin token provided.",
                 "Find it under the administration tab on the Epitech intranet !"
             )
             return
-        token = Intra.check_autologin(self.application.intra_autologin.get_text())
+        token = check_autologin(self.application.intra_autologin.get_text())
         if not token:
             self.application.error_dialog_window(
                 "Error : invalid Epitech intranet autologin token format.",
                 FORMAT_ERROR_MESSAGE
             )
             return
-        self.application.intra.set_token(token)
+        self.application.thrower.set_token(token)
         if self.application.progress.get_fraction() == 0.0:
             thread = threading.Thread(target=self.application.planify)
             thread.daemon = True
@@ -56,7 +58,7 @@ class Handler:
 
     def onAddHour(self, button):
         new_label = self.application.new_hour_label.get_text()
-        if not Intra.check_hour_format(new_label):
+        if not check_hour_format(new_label):
             self.application.error_dialog_window('Error : entry must be a correct hour format')
             return
         new_checkbox = Gtk.CheckButton(label=self.application.new_hour_label.get_text())
@@ -79,7 +81,8 @@ class Application:
         self.progress = self.builder.get_object('Bar')
         self.intra_autologin = self.builder.get_object('IntraInput')
 
-        self.intra = Intra()
+        self.thrower = Intra()
+        self.intra = EventPlanner(self.thrower)
 
         self.enabled_promotions = {
             day: {
@@ -91,7 +94,7 @@ class Application:
             } for day in DAYS
         }
         Application.set_default_settings(DAYS, self.enabled_promotions)
-        self.set_dates(datetime.date.today() + datetime.timedelta(days=7))
+        self.set_dates(datetime.date.today()) # HACK: change nb days if not correct date
 
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
@@ -121,7 +124,10 @@ class Application:
     def set_dates(self, current_day):
         """Set current week by giving a day, the week will start at the closest monday  
         """
-        next_monday = current_day + datetime.timedelta(days=-current_day.weekday(), weeks=1)
+        # next_monday = current_day + datetime.timedelta(days=-current_day.weekday(), weeks=1)
+        while current_day.weekday() != 0:
+            current_day = current_day + datetime.timedelta(days=1)
+        next_monday = current_day
         self.dates = {
             'Lundi':next_monday.strftime("%Y-%m-%d"),
             'Mardi':(next_monday + datetime.timedelta(days=1)).strftime("%Y-%m-%d"),
@@ -171,9 +177,10 @@ class Application:
             for i in self.enabled_promotions[a].items():
                 if i[1].get_active():
                     selected.append(i[0])
-            planned = self.intra.planify_sessions([self.dates[a]])
+            planned = self.intra.planify_sessions([self.dates[a]], self.planning_hours)
             for t in planned:
-                self.intra.register_students(selected, t)
+                print("interface", t, selected)
+                self.intra.students_registration(ACTIVITY_URL + t, selected)
         self.reset_progress()
         GLib.idle_add(self.error_dialog_window, 'Job finished ')
 
