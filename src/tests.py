@@ -1,7 +1,7 @@
 import unittest
 from model import EventPlanner
 from mock_intranet import MockIntranet
-from mock_data import events, students
+from mockData import events, students
 from checkers import check_autologin, check_hour_format, exec_regex
 
 class TestCheckersFunctions(unittest.TestCase):
