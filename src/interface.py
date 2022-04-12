@@ -65,6 +65,14 @@ class Handler:
         self.application.setPlanningHours([])
         self.application.hours.add(new_checkbox)
         new_checkbox.show()
+    
+    def onDateSwitch(self, button):
+        if button.get_label() == 'gtk-go-back':
+            self.application.setDates(self.application.selected_date + datetime.timedelta(days=-7))
+        elif button.get_label() == 'gtk-go-forward':
+            self.application.setDates(self.application.selected_date + datetime.timedelta(days=7))
+        elif button.get_label() == 'gtk-refresh':
+            self.application.setDates(datetime.date.today())
 
 class Application:
     """
@@ -94,34 +102,13 @@ class Application:
             } for day in DAYS
         }
         Application.setDefaultSettings(DAYS, self.enabled_promotions)
-        self.setDates(datetime.date.today()) # HACK: change nb days if not correct date
+        self.selected_date = datetime.date.today()
+        self.setDates(self.selected_date) # HACK: change nb days if not correct date
 
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
 
         self.planning_hours = []
-
-    @staticmethod
-    def setDefaultSettings(days, day):
-        """set default settings for checkbox inside the GUI
-
-        :param days: Days of the Week
-        :type days: list[str]
-        :param day: Checkbuttons sorted by day
-        :type day: list[<Gtk.CheckButton object>]
-        """
-        for a in days:
-            day[a]['wac1'].set_active(True)
-            if a == 'Lundi':
-                day[a]['premsc'].set_active(True)
-            if a == 'Mardi':
-                day[a]['premsc'].set_active(True)
-            if a == 'Jeudi':
-                day[a]['msc1'].set_active(True)
-                day[a]['msc2'].set_active(True)
-            if a == 'Vendredi':
-                day[a]['msc1'].set_active(True)
-                day[a]['msc2'].set_active(True)
 
     def setPlanningHours(self, hours):
         """Setter for planning hours
@@ -141,6 +128,7 @@ class Application:
         while current_day.weekday() != 0:
             current_day = current_day + datetime.timedelta(days=1)
         next_monday = current_day
+        self.selected_date = next_monday
         self.dates = {
             'Lundi':next_monday.strftime("%Y-%m-%d"),
             'Mardi':(next_monday + datetime.timedelta(days=1)).strftime("%Y-%m-%d"),
@@ -209,6 +197,28 @@ class Application:
                 self.intra.students_registration(ACTIVITY_URL + t, selected)
         self.resetProgress()
         GLib.idle_add(self.errorDialogWindow, 'Job finished ')
+
+    @staticmethod
+    def setDefaultSettings(days, day):
+        """set default settings for checkbox inside the GUI
+
+        :param days: Days of the Week
+        :type days: list[str]
+        :param day: Checkbuttons sorted by day
+        :type day: list[<Gtk.CheckButton object>]
+        """
+        for a in days:
+            day[a]['wac1'].set_active(True)
+            if a == 'Lundi':
+                day[a]['premsc'].set_active(True)
+            if a == 'Mardi':
+                day[a]['premsc'].set_active(True)
+            if a == 'Jeudi':
+                day[a]['msc1'].set_active(True)
+                day[a]['msc2'].set_active(True)
+            if a == 'Vendredi':
+                day[a]['msc1'].set_active(True)
+                day[a]['msc2'].set_active(True)
 
 if __name__ == "__main__":
     App = Application()
