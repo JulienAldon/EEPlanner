@@ -103,7 +103,7 @@ class Application:
         }
         Application.setDefaultSettings(DAYS, self.enabled_promotions)
         self.selected_date = datetime.date.today()
-        self.setDates(self.selected_date) # HACK: change nb days if not correct date
+        self.setDates(self.selected_date)
 
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
