@@ -1,6 +1,6 @@
 import unittest
 from intranet import Intranet
-from mock_data import students, events, registered_students, event
+from mockData import students, events, registered_students, event
 
 class MockIntranet(Intranet):
     def __init__(self, token):
