@@ -1,15 +1,15 @@
 import unittest
 from model import EventPlanner
-from mock_intranet import MockIntranet
+from mockIntranet import MockIntranet
 from mockData import events, students
-from checkers import check_autologin, check_hour_format, exec_regex
+from checkers import check_autologin, check_hour_format, execRegex
 
 class TestCheckersFunctions(unittest.TestCase):
     def test_exec_regex_error(self):
-        self.assertFalse(exec_regex(r'azeasqd', 'https://localhost:8000'))
+        self.assertFalse(execRegex(r'azeasqd', 'https://localhost:8000'))
 
     def test_exec_regex_good(self):
-        self.assertEqual(exec_regex(r'https', 'https://localhost:8000'), True)
+        self.assertEqual(execRegex(r'https', 'https://localhost:8000'), True)
 
     def test_check_autologin_good_short(self):
         self.assertEqual(check_autologin('auth-abcdef123456789abcdef'), 'https://intra.epitech.eu/auth-abcdef123456789abcdef')
