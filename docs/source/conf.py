@@ -22,7 +22,7 @@ copyright = '2022, Julien'
 author = 'Julien'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.1'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------

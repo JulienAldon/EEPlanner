@@ -8,8 +8,10 @@ Welcome to EventPlanner's documentation!
 
 EpitechEventPlanner
 ===================
-Planificateur d'evenements automatique pour l'activitée `W-ADM-007/LYN-0-1/acti-505014`
+Documentation for:
 
+- Interface & Model modules : Event Planner interface and exemple of implementation of the intranet interface.
+- Intranet module : Interface which is responsible of all the communication between client and intranet. 
 
 .. toctree::
    :maxdepth: 2
