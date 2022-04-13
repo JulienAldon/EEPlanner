@@ -5,9 +5,8 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 from model import EventPlanner
 from intranet import Intra
-from checkers import check_autologin, check_hour_format
+from checkers import check_autologin, check_hour_format, check_activity_format
 import re
-from constants import ACTIVITY_URL
 
 DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
 FORMAT_ERROR_MESSAGE = """
@@ -28,7 +27,7 @@ class Handler:
         Gtk.main_quit()
 
     def onSendForm(self, button):
-        if not self.application.planning_hours or len(self.application.planning_hours) <= 0:
+        if not self.application.getPlanningHours() or len(self.application.getPlanningHours()) <= 0:
             self.application.hours.forall(self.onAddWidget)
         if not self.application.intra_autologin.get_text():
             self.application.errorDialogWindow(
@@ -41,6 +40,13 @@ class Handler:
             self.application.errorDialogWindow(
                 "Error : invalid Epitech intranet autologin token format.",
                 FORMAT_ERROR_MESSAGE
+            )
+            return
+        self.application.setActivityUrl(self.application.activity_input.get_text())
+        if not self.application.getActivityUrl() or not check_activity_format(self.application.getActivityUrl()):
+            self.application.errorDialogWindow(
+                "Error : no activity recognized selected, please provide an activity url.",
+                "format : /module/<year>/<module-code>/<session>/<activity-code>"
             )
             return
         self.application.thrower.set_token(token)
@@ -107,8 +113,26 @@ class Application:
 
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
+        self.activity_input = self.builder.get_object('ActivityInput')
 
+        self.activity_url = ""
         self.planning_hours = []
+
+    def setActivityUrl(self, url):
+        """Setter for Activity url
+
+        :param url: Activity Url (format must match check_activity_format)
+        :type url: str
+        """
+        self.activity_url = url
+
+    def getActivityUrl(self):
+        """Getter for Activity url
+
+        :returns: The saved activity url
+        :rtype: str
+        """
+        return self.activity_url
 
     def setPlanningHours(self, hours):
         """Setter for planning hours
@@ -118,13 +142,20 @@ class Application:
         """
         self.planning_hours = hours
 
+    def getPlanningHours(self):
+        """Getter for planning hours
+
+        :returns: The planned hours
+        :rtype: list[str]
+        """
+        return self.planning_hours
+
     def setDates(self, current_day):
         """Set current week by giving a day, the week will start at the closest monday  
 
         :param current_day: current day
         :type current_day: <class 'datetime.date'>
         """
-        # next_monday = current_day + datetime.timedelta(days=-current_day.weekday(), weeks=1)
         while current_day.weekday() != 0:
             current_day = current_day + datetime.timedelta(days=1)
         next_monday = current_day
@@ -191,10 +222,10 @@ class Application:
             for i in self.enabled_promotions[a].items():
                 if i[1].get_active():
                     selected.append(i[0])
-            planned = self.intra.planify_sessions([self.dates[a]], self.planning_hours)
+            planned = self.intra.planify_sessions(self.getActivityUrl(), [self.dates[a]], self.getPlanningHours())
             for t in planned:
                 print("interface", t)
-                self.intra.students_registration(ACTIVITY_URL + t, selected)
+                self.intra.students_registration(self.getActivityUrl() + t, selected)
         self.resetProgress()
         GLib.idle_add(self.errorDialogWindow, 'Job finished ')
 

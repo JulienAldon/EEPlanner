@@ -44,3 +44,13 @@ def check_hour_format(hour):
     if not execRegex(r'^([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$', hour):
         return False
     return True
+
+def check_activity_format(activity):
+    """Check intranet activity format
+
+    :param activity:
+    """
+    reg = r'^/module/[0-9]+/[A-Z-0-9]+/LYN-[0-9-]+/acti-[0-9]+/$'
+    if execRegex(reg, activity):
+        return True
+    return False
