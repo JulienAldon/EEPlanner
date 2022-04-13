@@ -1,5 +1,3 @@
-from constants import ACTIVITY_URL
-
 class EventPlanner():
     def __init__(self, intranet):
         self.intranet = intranet
@@ -21,9 +19,11 @@ class EventPlanner():
             return None
         return self.intranet.registerStudents(event, students)
     
-    def planify_sessions(self, dates, hours):
+    def planify_sessions(self, activity, dates, hours):
         """Create pce sign event given a list of dates and list of hours
 
+        :param activity: Activity url where to create events
+        :type activity: str
         :param dates: All dates to planify
         :type dates: list[str]
         :param hours: Hours to planify
@@ -32,6 +32,6 @@ class EventPlanner():
         """
         if not dates or not hours or len(dates) == 0 or len(hours) == 0:
             return None
-        res = [self.intranet.createEvent(ACTIVITY_URL, date, hour) for date in dates for hour in hours]
-        return self.intranet.getEvents(ACTIVITY_URL, dates[0])
+        res = [self.intranet.createEvent(activity, date, hour) for date in dates for hour in hours]
+        return self.intranet.getEvents(activity, dates[0])
         

@@ -2,7 +2,7 @@ import unittest
 from model import EventPlanner
 from mockIntranet import MockIntranet
 from mockData import events, students
-from checkers import check_autologin, check_hour_format, execRegex
+from checkers import check_autologin, check_hour_format, execRegex, check_activity_format
 
 class TestCheckersFunctions(unittest.TestCase):
     def test_exec_regex_error(self):
@@ -46,6 +46,24 @@ class TestCheckersFunctions(unittest.TestCase):
         self.assertFalse(check_hour_format(':::'))
         self.assertFalse(check_hour_format('"1"2"3"2"3"'))
 
+    def test_check_activity_format_error1(self):
+        self.assertFalse(check_activity_format('module/2021/W-ADM-007/acti-505014'))
+
+    def test_check_activity_format_error2(self):
+        self.assertFalse(check_activity_format('/2021/W-ADM-007/acti-505014'))
+
+    def test_check_activity_format_error3(self):
+        self.assertFalse(check_activity_format('module/2021/W-ADM-007/truc-505014'))
+
+    def test_check_activity_format_error4(self):
+        self.assertFalse(check_activity_format('module/2021/B-CNA-410/acti-505014/'))
+
+    def test_check_activity_format_error5(self):
+        self.assertFalse(check_activity_format('je/suis/un/crapo'))
+
+    def test_check_activity_format_good(self):
+        self.assertEqual(check_activity_format('/module/2021/W-ADM-007/LYN-4-1/acti-509029/'), True)
+
 class TestModelIntranet(unittest.TestCase):
     def test_registration_good(self):
         intra = MockIntranet("")
@@ -80,33 +98,32 @@ class TestModelIntranet(unittest.TestCase):
     def test_planify_session_good(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.planify_sessions(['2022-04-04'], ['10:10:10'])
+        te = e.planify_sessions('module/2021/W-ADM-007/LYN-0-1/acti-505014', ['2022-04-04'], ['10:10:10'])
         self.assertEqual(te, events)
 
     def test_planify_session_error_date_empty(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.planify_sessions([], ['10:10:10'])
+        te = e.planify_sessions('/module/2021/W-ADM-007/LYN-0-1/acti-505014/', [], ['10:10:10'])
         self.assertEqual(te, None)
 
     def test_planify_session_error_hour_empty(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.planify_sessions(['2022-04-04'], [])
+        te = e.planify_sessions('/module/2021/W-ADM-007/LYN-0-1/acti-505014/', ['2022-04-04'], [])
         self.assertEqual(te, None)
 
     def test_planify_session_errors_none(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.planify_sessions(None, None)
+        te = e.planify_sessions('/module/2021/W-ADM-007/LYN-0-1/acti-505014/', None, None)
         self.assertEqual(te, None)
 
     def test_planify_session_errors_empty(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.planify_sessions([], [])
+        te = e.planify_sessions('/module/2021/W-ADM-007/LYN-0-1/acti-505014/', [], [])
         self.assertEqual(te, None)
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -66,6 +66,46 @@
           </packing>
         </child>
         <child>
+          <object class="GtkBox" id="ActivityUrl">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Activity Url</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">49</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="ActivityInput">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">format : /module/&lt;year&gt;/&lt;module-code&gt;/&lt;session&gt;/&lt;activity-code&gt;</property>
+                <property name="max-width-chars">81</property>
+                <property name="text" translatable="yes">/module/2021/W-ADM-007/LYN-0-1/acti-505014/</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkBox" id="Planif_hoursBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -218,7 +258,7 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="padding">15</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -922,6 +962,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="padding">10</property>
                 <property name="position">1</property>
               </packing>
             </child>
@@ -929,7 +970,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -943,7 +984,7 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="pack-type">end</property>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -958,7 +999,7 @@
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="pack-type">end</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
       </object>

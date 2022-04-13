@@ -16,30 +16,27 @@ Event planner for epitech intranet
 - Documentation [Reference](https://julienaldon.github.io/EpitechEventPlanner/index.html#document-modules)
 - Tests ([tests.py](./src/tests.py))
 
-### CLI 
-A Command Line Interface allow the user to quickly add events to an activity
-See section usage for more info.
-```sh
-pipenv run python src
-```
-
 ### GUI Interface 
 The application comes with an interface made with pyGTK
 ```sh
 pipenv run python interface.py
 ```
+You can modify the interface widget by looking at the [Application.glade](./Application.glade)
+It can be modified with [glade](https://glade.gnome.org/).
 
 #### Build Interface
 The application can be built by using the following command
 ```sh
 pipenv run python setup.py
 ```
+It should generate a build folder where you can find your executable.
 
 #### Tests
 The application have some basic unit tests using python unittest
 ```sh
-pipenv run python tests.py
+pipenv run python tests.py -v
 ```
+`-v` is optionnal, it shows more informations.
 
 # Install dependency
 For maintainability reason the project comes with a `pipenv` file describing all the dependency and their version
@@ -47,7 +44,14 @@ For maintainability reason the project comes with a `pipenv` file describing all
 pipenv install
 ```
 
-# CLI exemple usage
+### CLI 
+A Command Line Interface allow the user to quickly add events to an activity
+See section usage for more info.
+```sh
+pipenv run python src
+```
+
+# CLI examples
 ```sh
 pipenv run pyton . --promotion wac1 "2022-01-17" "2022-01-18"
 ```
