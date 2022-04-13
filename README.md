@@ -1,6 +1,8 @@
 # EpitechEventPlanner
 Event planner for epitech intranet
 
+![How does it look ?](assets/img.png "Example")
+
 ## Supported promotions 
 - wac1
 - wac2
