@@ -1,9 +1,7 @@
 # EpitechEventPlanner
 Event planner for epitech intranet
 
-## Support
-### Current activity `W-ADM-007/LYN-0-1/acti-505014`
-### Current promotions 
+## Supported promotions 
 - wac1
 - wac2
 - msc1 (intra msc4)
