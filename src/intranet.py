@@ -89,7 +89,7 @@ class Intra(Intranet):
             try:
                 #TODO: Add year in args
                 req = requests.get(
-                    self.token + f'/user/filter/user?format=json&location=FR/LYN&year=2021&active=true&promo={promo}&offset={nb_items}')
+                    self.token + f'/user/filter/user?format=json&location=FR/LYN&year={year}&active=true&promo={promo}&offset={nb_items}')
             except Exception as e:
                 print(f'[getStudents] An error occured while asking intra : {e}')
                 return None
