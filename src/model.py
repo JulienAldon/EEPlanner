@@ -2,7 +2,7 @@ class EventPlanner():
     def __init__(self, intranet):
         self.intranet = intranet
 
-    def students_registration(self, event, promotions):
+    def students_registration(self, event, promotions, year):
         """Register promotion
 
         :param event: Complete event URL
@@ -12,9 +12,9 @@ class EventPlanner():
         :returns: Registered students or false otherwise
         :rtype: typing.Optional(list[str])
         """
-        if not promotions or len(promotions) == 0 or not event or len(event) == 0:
+        if not promotions or len(promotions) == 0 or not event or len(event) == 0 or not year:
             return None
-        students = self.intranet.getStudents(promotions)
+        students = self.intranet.getStudents(promotions, year)
         if not students:
             return None
         return self.intranet.registerStudents(event, students)
@@ -31,7 +31,9 @@ class EventPlanner():
         :rtype: list[dict]
         """
         if not dates or not hours or len(dates) == 0 or len(hours) == 0:
+            print("no date or hours")
             return None
         res = [self.intranet.createEvent(activity, date, hour) for date in dates for hour in hours]
+        print(activity)
         return self.intranet.getEvents(activity, dates[0])
         

@@ -68,32 +68,51 @@ class TestModelIntranet(unittest.TestCase):
     def test_registration_good(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.students_registration(f'/module/2021/W-ADM-007/LYN-0-1/acti-505014/', ['wac1', 'wac2', 'msc1', 'msc2', 'premsc'])
+        te = e.students_registration(f'/module/2021/W-ADM-007/LYN-0-1/acti-505014/', ['wac1', 'wac2', 'msc1', 'msc2', 'premsc'], '2021')
         self.assertEqual(te, students)
 
     def test_registration_error_promotion_none(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.students_registration(f'/module/2021/W-ADM-007/LYN-0-1/acti-505014/', None)
+        te = e.students_registration(f'/module/2021/W-ADM-007/LYN-0-1/acti-505014/', None, '2021')
         self.assertEqual(te, None)
 
     def test_registration_error_promotion_empty(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.students_registration(f'/module/2021/W-ADM-007/LYN-0-1/acti-505014/', [])
+        te = e.students_registration(f'/module/2021/W-ADM-007/LYN-0-1/acti-505014/', [], '2021')
         self.assertEqual(te, None)
 
     def test_registration_error_event_empty(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.students_registration('', ['wac1', 'wac2'])
+        te = e.students_registration('', ['wac1', 'wac2'], '2021')
         self.assertEqual(te, None)
     
     def test_registration_error_event_none(self):
         intra = MockIntranet("")
         e = EventPlanner(intra)
-        te = e.students_registration(None, ['wac1', 'wac2'])
+        te = e.students_registration(None, ['wac1', 'wac2'], '2021')
         self.assertEqual(te, None)
+
+    def test_registration_error_year_empty(self):
+        intra = MockIntranet("")
+        e = EventPlanner(intra)
+        te = e.students_registration('', ['wac1', 'wac2'], '')
+        self.assertEqual(te, None)
+
+    def test_registration_error_year_wrong(self):
+        intra = MockIntranet("")
+        e = EventPlanner(intra)
+        te = e.students_registration('', ['wac1', 'wac2'], 0)
+        self.assertEqual(te, None)
+
+    def test_registration_error_year_negative(self):
+        intra = MockIntranet("")
+        e = EventPlanner(intra)
+        te = e.students_registration('', ['wac1', 'wac2'], -2021)
+        self.assertEqual(te, None)
+
 
     def test_planify_session_good(self):
         intra = MockIntranet("")

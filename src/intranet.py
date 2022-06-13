@@ -82,15 +82,16 @@ class Intra(Intranet):
     def set_token(self, token):
         self.token = check_autologin(token)
 
-    def getStudents(self, promotions):
+    def getStudents(self, promotions, year):
         results, nb_items, total = [], 0, 1
         promo = '|'.join(list(map(PROMOTIONS.get, promotions)))
         while nb_items < total:
             try:
+                #TODO: Add year in args
                 req = requests.get(
                     self.token + f'/user/filter/user?format=json&location=FR/LYN&year=2021&active=true&promo={promo}&offset={nb_items}')
             except Exception as e:
-                print(f'An error occured while asking intra : {e}')
+                print(f'[getStudents] An error occured while asking intra : {e}')
                 return None
             results += [elem['login'] for elem in req.json()['items']]
             total = req.json()['total']
@@ -108,7 +109,7 @@ class Intra(Intranet):
             req = requests.post(
                 self.token + event + '/updateregistered?format=json', data)
         except Exception as e:
-            print(f'An error occured while asking intra : {e}')
+            print(f'[registerStudents] An error occured while asking intra : {e}')
             return None
         sleep(0.2) # HACK: avoid intra rate limit
         return students
@@ -132,14 +133,20 @@ class Intra(Intranet):
             print(f'An error occured while asking intra : {e}')
             return None
         activities_json = activities.json()
+        events = activities_json.get('events', None)
+        if events == None:
+            error_message = activities_json.get('message', None)
+            print(error_message)
+            print('An error occured with the request : unable to get correct content')
+            return None
         if date:
             today_event = [
                 a['code'] 
-                for a in activities_json['events']
+                for a in events
                 if a['begin'][:10] == date
             ]
             return today_event
-        return activities_json['events']
+        return events
 
     def getRegisteredStudents(self, event):
         students = requests.get(

@@ -105,6 +105,9 @@ class Application:
                 'msc1': self.builder.get_object(day+'Msc1'),
                 'msc2': self.builder.get_object(day+'Msc2'),
                 'premsc': self.builder.get_object(day+'PreMsc'),
+                'tek1': self.builder.get_object(day+'Tek1'),
+                'tek2': self.builder.get_object(day+'Tek2'),
+                'tek3': self.builder.get_object(day+'Tek3'),
             } for day in DAYS
         }
         Application.setDefaultSettings(DAYS, self.enabled_promotions)
@@ -114,6 +117,9 @@ class Application:
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
         self.activity_input = self.builder.get_object('ActivityInput')
+
+        self.input_year = self.builder.get_object('PromoInput')
+        self.input_year.set_text(str(int(datetime.datetime.today().strftime("%Y")) - 1))
 
         self.activity_url = ""
         self.planning_hours = []
@@ -213,7 +219,12 @@ class Application:
 
     def planifyAndRegister(self):
         """Call model method to planify and register students to the planified sessions
+
+        Cycle throught each days defined in CONSTANT variables DAYS and Register enabled promotion
+        to the corresponding planned event.
         """
+        year = self.input_year.get_text()
+        year = '2021' #TODO: set year
         count = 1
         for a in DAYS:
             GLib.idle_add(self.updateProgress, count)
@@ -223,9 +234,12 @@ class Application:
                 if i[1].get_active():
                     selected.append(i[0])
             planned = self.intra.planify_sessions(self.getActivityUrl(), [self.dates[a]], self.getPlanningHours())
+            if planned == None:
+                self.resetProgress()
+                return
             for t in planned:
                 print("interface", t)
-                self.intra.students_registration(self.getActivityUrl() + t, selected)
+                self.intra.students_registration(self.getActivityUrl() + t, selected, year)
         self.resetProgress()
         GLib.idle_add(self.errorDialogWindow, 'Job finished ')
 
