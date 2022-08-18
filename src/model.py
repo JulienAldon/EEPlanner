@@ -14,7 +14,9 @@ class EventPlanner():
         """
         if not promotions or len(promotions) == 0 or not event or len(event) == 0 or not year:
             return None
-        students = self.intranet.getStudents(promotions, year)
+        students = []
+        for prom in promotions:
+            students += self.intranet.getStudents(prom, year)
         if not students:
             return None
         return self.intranet.registerStudents(event, students)

@@ -13,11 +13,11 @@ class Intranet(ABC):
     :type token: str
     """
     @abstractmethod
-    async def getStudents(self, promotions):
+    async def getStudents(self, promotion):
         """Get list of students of the given promotions
 
-        :param promotions: Promotions code ('msc1', 'msc2', 'wac1', 'wac2', 'premsc')
-        :type promotions: list[str]
+        :param promotion: Promotions code ('msc1', 'msc2', 'wac1', 'wac2', 'premsc')
+        :type promotions: str
         :returns: Students or None in case of error
         :rtype: typing.Optional[list[str]]
         """
@@ -82,12 +82,11 @@ class Intra(Intranet):
     def set_token(self, token):
         self.token = check_autologin(token)
 
-    def getStudents(self, promotions, year):
+    def getStudents(self, promotion, year):
         results, nb_items, total = [], 0, 1
-        promo = '|'.join(list(map(PROMOTIONS.get, promotions)))
+        promo = '|'.join(list(map(PROMOTIONS.get, promotion)))
         while nb_items < total:
             try:
-                #TODO: Add year in args
                 req = requests.get(
                     self.token + f'/user/filter/user?format=json&location=FR/LYN&year={year}&active=true&promo={promo}&offset={nb_items}')
             except Exception as e:
