@@ -4,7 +4,8 @@ import datetime
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 from model import EventPlanner
-from intranet import Intra
+import YAWAEI.intranet as YAWAEI
+
 from checkers import check_autologin, check_hour_format, check_activity_format
 import re
 
@@ -26,7 +27,7 @@ class Handler:
     def onDestroy(self, *args):
         Gtk.main_quit()
 
-    def onSendForm(self, button):
+    def button_error_handling(self):
         if not self.application.getPlanningHours() or len(self.application.getPlanningHours()) <= 0:
             self.application.hours.forall(self.onAddWidget)
         if not self.application.intra_autologin.get_text():
@@ -50,8 +51,36 @@ class Handler:
             )
             return
         self.application.thrower.set_token(token)
+
+    def onSendForm(self, button):
+        self.button_error_handling()
         if self.application.progress.get_fraction() == 0.0:
             thread = threading.Thread(target=self.application.planifyAndRegister)
+            thread.daemon = True
+            thread.start()
+        else:
+            self.application.errorDialogWindow("Error : cannot start job, another one is already running.")
+            return
+
+    def onPlanify(self, button):
+        self.button_error_handling()
+        if self.application.progress.get_fraction() == 0.0:
+            thread = threading.Thread(target=self.application.planify)
+            thread.daemon = True
+            thread.start()
+        else:
+            self.application.errorDialogWindow("Error : cannot start job, another one is already running.")
+            return
+    
+    def onRegister(self, button):
+        self.button_error_handling()
+        if len(self.application.planned) == 0 and self.application.specific_session_active.get_active() == False:
+            self.application.errorDialogWindow(
+                "Error : you must planify sessions before student registration",
+            )
+            return
+        if self.application.progress.get_fraction() == 0.0:
+            thread = threading.Thread(target=self.application.register)
             thread.daemon = True
             thread.start()
         else:
@@ -86,7 +115,7 @@ class Application:
     """
     def __init__(self):
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("Application.glade")
+        self.builder.add_from_file("Application2.glade")
         self.builder.connect_signals(Handler(self))
 
         self.window = self.builder.get_object("Window")
@@ -95,32 +124,58 @@ class Application:
         self.progress = self.builder.get_object('Bar')
         self.intra_autologin = self.builder.get_object('IntraInput')
 
-        self.thrower = Intra()
+        self.thrower = YAWAEI.AutologinIntranet()
         self.intra = EventPlanner(self.thrower)
 
+        self.planned = {}
+        self.current_year = self.thrower.get_current_scholar_year()
+        self.YEARS = [str(int(self.current_year) - 1), self.current_year] #TODO: Get Real Date from intranet
+
         self.enabled_promotions = {
-            day: {
-                'wac1': self.builder.get_object(day+'Wac1'),
-                'wac2': self.builder.get_object(day+'Wac2'),
-                'msc1': self.builder.get_object(day+'Msc1'),
-                'msc2': self.builder.get_object(day+'Msc2'),
-                'premsc': self.builder.get_object(day+'PreMsc'),
-                'tek1': self.builder.get_object(day+'Tek1'),
-                'tek2': self.builder.get_object(day+'Tek2'),
-                'tek3': self.builder.get_object(day+'Tek3'),
-            } for day in DAYS
+            day: { year: {
+                'wac1': self.builder.get_object(f'{day}Wac1_year{"-1" if year == min(self.YEARS) else ""}'),
+                'wac2': self.builder.get_object(f'{day}Wac2_year{"-1" if year == min(self.YEARS) else ""}'),
+                'msc1': self.builder.get_object(f'{day}Msc1_year{"-1" if year == min(self.YEARS) else ""}'),
+                'msc2': self.builder.get_object(f'{day}Msc2_year{"-1" if year == min(self.YEARS) else ""}'),
+                'premsc': self.builder.get_object(f'{day}PreMsc_year{"-1" if year == min(self.YEARS) else ""}'),
+                'tek1': self.builder.get_object(f'{day}Tek1_year{"-1" if year == min(self.YEARS) else ""}'),
+                'tek2': self.builder.get_object(f'{day}Tek2_year{"-1" if year == min(self.YEARS) else ""}'),
+                'tek3': self.builder.get_object(f'{day}Tek3_year{"-1" if year == min(self.YEARS) else ""}'),
+            } for year in self.YEARS} for day in DAYS
         }
-        Application.setDefaultSettings(DAYS, self.enabled_promotions)
+
+        self.specific_session = { year: {
+            'wac1': self.builder.get_object(f'SessionWac1_year{"-1" if year == min(self.YEARS) else ""}'),
+            'wac2': self.builder.get_object(f'SessionWac2_year{"-1" if year == min(self.YEARS) else ""}'),
+            'msc1': self.builder.get_object(f'SessionMsc1_year{"-1" if year == min(self.YEARS) else ""}'),
+            'msc2': self.builder.get_object(f'SessionMsc2_year{"-1" if year == min(self.YEARS) else ""}'),
+            'premsc': self.builder.get_object(f'SessionPreMsc_year{"-1" if year == min(self.YEARS) else ""}'),
+            'tek1': self.builder.get_object(f'SessionTek1_year{"-1" if year == min(self.YEARS) else ""}'),
+            'tek2': self.builder.get_object(f'SessionTek2_year{"-1" if year == min(self.YEARS) else ""}'),    
+        } for year in self.YEARS }
+
+        self.specific_session_active = self.builder.get_object('SessionActive')
+
+        self.specific_session_event = self.builder.get_object('SessionID')
+
+        self.active_days = {
+            day: self.builder.get_object(f'{day}Active') for day in DAYS
+        }
+
+        for i in range(0, 11):
+            year = self.builder.get_object(f'year{i}')
+            if i % 2 == 0:
+                year.set_text(min(self.YEARS))
+            else:
+                year.set_text(max(self.YEARS))
+
         self.selected_date = datetime.date.today()
         self.setDates(self.selected_date)
 
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
         self.activity_input = self.builder.get_object('ActivityInput')
-
-        self.input_year = self.builder.get_object('PromoInput')
-        self.input_year.set_text(str(int(datetime.datetime.today().strftime("%Y")) - 1))
-
+        
         self.activity_url = ""
         self.planning_hours = []
 
@@ -219,29 +274,55 @@ class Application:
 
     def planifyAndRegister(self):
         """Call model method to planify and register students to the planified sessions
-
-        Cycle throught each days defined in CONSTANT variables DAYS and Register enabled promotion
-        to the corresponding planned event.
         """
-        year = self.input_year.get_text()
-        year = '2021' #TODO: set year
+        ...
+        self.planify()
+        self.register()
+
+    def planify(self):
+        """Planify all active sessions in the notebook
+        """
+        GLib.idle_add(self.errorDialogWindow, 'Starting planification')
         count = 1
-        for a in DAYS:
+        for day in DAYS:
             GLib.idle_add(self.updateProgress, count)
             count += 1
-            selected = []
-            for i in self.enabled_promotions[a].items():
-                if i[1].get_active():
-                    selected.append(i[0])
-            planned = self.intra.planify_sessions(self.getActivityUrl(), [self.dates[a]], self.getPlanningHours())
-            if planned == None:
-                self.resetProgress()
-                return
-            for t in planned:
-                print("interface", t)
-                self.intra.students_registration(self.getActivityUrl() + t, selected, year)
+            if self.active_days[day].get_active() == True:
+                self.planned[day] = self.intra.planify_sessions(self.getActivityUrl(), [self.dates[day]], self.getPlanningHours())
         self.resetProgress()
-        GLib.idle_add(self.errorDialogWindow, 'Job finished ')
+        GLib.idle_add(self.errorDialogWindow, 'Planification finished, you can now register students')
+
+    def register(self):
+        """Register all promotions to the planified events
+        """
+        GLib.idle_add(self.errorDialogWindow, 'Starting registration')
+        count = 1
+        # TODO: Look for generic function
+        if self.specific_session_active.get_active():
+            specific_sessions = self.specific_session_event.get_text().split(',')
+            for session in specific_sessions:
+                for y in self.YEARS:
+                    for promo in self.specific_session[y].items():
+                        if promo[1].get_active():
+                            self.intra.students_registration(self.getActivityUrl() + session, promo[0], y)
+
+        selected = {day: [] for day in DAYS}
+        for day in DAYS:
+            GLib.idle_add(self.updateProgress, count)
+            count += 1
+            for y in self.YEARS:
+                for promo in self.enabled_promotions[day][y].items():
+                    if promo[1].get_active():
+                        selected[day].append((y, promo[0]))
+            if self.planned.get(day) != None:
+                for session in self.planned[day]:
+                    for sel in selected[day]:
+                        self.intra.students_registration(self.getActivityUrl() + session, sel[1], sel[0])
+
+        self.planned = {}
+        self.resetProgress()
+        GLib.idle_add(self.errorDialogWindow, 'Registration finished')
+
 
     @staticmethod
     def setDefaultSettings(days, day):
