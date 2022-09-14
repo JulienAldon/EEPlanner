@@ -1,29 +1,23 @@
 # EpitechEventPlanner
 Event planner for epitech intranet.
-The purpose of this tool is to create events under a specific activity
+The purpose of this tool is to create repeating events under a given activity
 
 ![How does it look ?](assets/img.png "Example")
 
-## Supported promotions 
-- wac1
-- wac2
-- msc1 (intra msc4)
-- msc2 (intra msc5)
-- premsc (intra msc3)
-
-Find the definition of the supported promotions in the [constants.py](src/constants.py) file
-
 ## Content
-- Command Line Interface ([__main__.py](./src/__main__.py))
 - Graphical User Interface created using pyGTK ([interface.py](./src/interface.py))
 - Documentation generated using sphinx [Reference](https://julienaldon.github.io/EpitechEventPlanner/index.html#document-modules)
 - Tests for the main [intranet](src/intranet.py) methods implementation and checker function ([tests.py](./src/tests.py))
+- Command Line Interface ([__main__.py](./src/__main__.py)) (unstable)
 
 ## Install dependencies
+
 For maintainability reason the project comes with a `pipenv` file describing all the dependencies and their version
 ```sh
 pipenv install
 ```
+
+# TODO: .desktop & cp executable
 
 ## GUI
 The application comes with an interface made with pyGTK

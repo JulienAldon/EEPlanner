@@ -10,6 +10,7 @@ pygobject = "*"
 glib = "*"
 cx-freeze = "*"
 pgi = "*"
+yawaei = "==0.0.4"
 
 [dev-packages]
 sphinx = "*"

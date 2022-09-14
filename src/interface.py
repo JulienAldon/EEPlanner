@@ -4,7 +4,7 @@ import datetime
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 from model import EventPlanner
-import YAWAEI.intranet as YAWAEI
+import Yawaei
 
 from checkers import check_autologin, check_hour_format, check_activity_format
 import re
@@ -28,24 +28,24 @@ class Handler:
         Gtk.main_quit()
 
     def button_error_handling(self):
-        if not self.application.getPlanningHours() or len(self.application.getPlanningHours()) <= 0:
+        if not self.application.get_planning_hours() or len(self.application.get_planning_hours()) <= 0:
             self.application.hours.forall(self.onAddWidget)
         if not self.application.intra_autologin.get_text():
-            self.application.errorDialogWindow(
+            self.application.error_dialog_window(
                 "Error : no Epitech intranet autologin token provided.",
                 "Find it under the administration tab on the Epitech intranet !"
             )
             return
         token = check_autologin(self.application.intra_autologin.get_text())
         if not token:
-            self.application.errorDialogWindow(
+            self.application.error_dialog_window(
                 "Error : invalid Epitech intranet autologin token format.",
                 FORMAT_ERROR_MESSAGE
             )
             return
-        self.application.setActivityUrl(self.application.activity_input.get_text())
-        if not self.application.getActivityUrl() or not check_activity_format(self.application.getActivityUrl()):
-            self.application.errorDialogWindow(
+        self.application.set_activity_url(self.application.activity_input.get_text())
+        if not self.application.get_activity_url() or not check_activity_format(self.application.get_activity_url()):
+            self.application.error_dialog_window(
                 "Error : no activity recognized selected, please provide an activity url.",
                 "format : /module/<year>/<module-code>/<session>/<activity-code>"
             )
@@ -55,11 +55,11 @@ class Handler:
     def onSendForm(self, button):
         self.button_error_handling()
         if self.application.progress.get_fraction() == 0.0:
-            thread = threading.Thread(target=self.application.planifyAndRegister)
+            thread = threading.Thread(target=self.application.planify_and_register)
             thread.daemon = True
             thread.start()
         else:
-            self.application.errorDialogWindow("Error : cannot start job, another one is already running.")
+            self.application.error_dialog_window("Error : cannot start job, another one is already running.")
             return
 
     def onPlanify(self, button):
@@ -69,13 +69,13 @@ class Handler:
             thread.daemon = True
             thread.start()
         else:
-            self.application.errorDialogWindow("Error : cannot start job, another one is already running.")
+            self.application.error_dialog_window("Error : cannot start job, another one is already running.")
             return
     
     def onRegister(self, button):
         self.button_error_handling()
         if len(self.application.planned) == 0 and self.application.specific_session_active.get_active() == False:
-            self.application.errorDialogWindow(
+            self.application.error_dialog_window(
                 "Error : you must planify sessions before student registration",
             )
             return
@@ -84,7 +84,7 @@ class Handler:
             thread.daemon = True
             thread.start()
         else:
-            self.application.errorDialogWindow("Error : cannot start job, another one is already running.")
+            self.application.error_dialog_window("Error : cannot start job, another one is already running.")
             return
 
     def onAddWidget(self, widget):
@@ -94,20 +94,20 @@ class Handler:
     def onAddHour(self, button):
         new_label = self.application.new_hour_label.get_text()
         if not check_hour_format(new_label):
-            self.application.errorDialogWindow('Error : entry must be a correct hour format')
+            self.application.error_dialog_window('Error : entry must be a correct hour format')
             return
         new_checkbox = Gtk.CheckButton(label=self.application.new_hour_label.get_text())
-        self.application.setPlanningHours([])
+        self.application.set_planning_hours([])
         self.application.hours.add(new_checkbox)
         new_checkbox.show()
     
     def onDateSwitch(self, button):
         if button.get_label() == 'gtk-go-back':
-            self.application.setDates(self.application.selected_date + datetime.timedelta(days=-7))
+            self.application.set_dates(self.application.selected_date + datetime.timedelta(days=-7))
         elif button.get_label() == 'gtk-go-forward':
-            self.application.setDates(self.application.selected_date + datetime.timedelta(days=7))
+            self.application.set_dates(self.application.selected_date + datetime.timedelta(days=7))
         elif button.get_label() == 'gtk-refresh':
-            self.application.setDates(datetime.date.today())
+            self.application.set_dates(datetime.date.today())
 
 class Application:
     """
@@ -124,12 +124,13 @@ class Application:
         self.progress = self.builder.get_object('Bar')
         self.intra_autologin = self.builder.get_object('IntraInput')
 
-        self.thrower = YAWAEI.AutologinIntranet()
+        self.thrower = Yawaei.intranet.AutologinIntranet()
         self.intra = EventPlanner(self.thrower)
 
         self.planned = {}
+
         self.current_year = self.thrower.get_current_scholar_year()
-        self.YEARS = [str(int(self.current_year) - 1), self.current_year] #TODO: Get Real Date from intranet
+        self.YEARS = [str(int(self.current_year) - 1), self.current_year]
 
         self.enabled_promotions = {
             day: { year: {
@@ -170,7 +171,7 @@ class Application:
                 year.set_text(max(self.YEARS))
 
         self.selected_date = datetime.date.today()
-        self.setDates(self.selected_date)
+        self.set_dates(self.selected_date)
 
         self.hours = self.builder.get_object('hours_selector')
         self.new_hour_label = self.builder.get_object('InputHour')
@@ -179,7 +180,7 @@ class Application:
         self.activity_url = ""
         self.planning_hours = []
 
-    def setActivityUrl(self, url):
+    def set_activity_url(self, url):
         """Setter for Activity url
 
         :param url: Activity Url (format must match check_activity_format)
@@ -187,7 +188,7 @@ class Application:
         """
         self.activity_url = url
 
-    def getActivityUrl(self):
+    def get_activity_url(self):
         """Getter for Activity url
 
         :returns: The saved activity url
@@ -195,7 +196,7 @@ class Application:
         """
         return self.activity_url
 
-    def setPlanningHours(self, hours):
+    def set_planning_hours(self, hours):
         """Setter for planning hours
 
         :param hours: hours to add to planning (format '%HH-%MM-%SS')
@@ -203,7 +204,7 @@ class Application:
         """
         self.planning_hours = hours
 
-    def getPlanningHours(self):
+    def get_planning_hours(self):
         """Getter for planning hours
 
         :returns: The planned hours
@@ -211,7 +212,7 @@ class Application:
         """
         return self.planning_hours
 
-    def setDates(self, current_day):
+    def set_dates(self, current_day):
         """Set current week by giving a day, the week will start at the closest monday  
 
         :param current_day: current day
@@ -235,7 +236,7 @@ class Application:
         self.builder.get_object("JeudiDate").set_label(self.dates['Jeudi'])
         self.builder.get_object("VendrediDate").set_label(self.dates['Vendredi'])
 
-    def errorDialogWindow(self, error_msg, secondary=None):
+    def error_dialog_window(self, error_msg, secondary=None):
         """Display a dialog with a custom message and optional secondary message
 
         :param error_msg: Message to display as title
@@ -257,7 +258,7 @@ class Application:
         md.run()
         md.destroy()
 
-    def updateProgress(self, i):
+    def update_progress(self, i):
         """Update progress bar
 
         :param i: progression (between 1 and 5)
@@ -267,12 +268,12 @@ class Application:
         self.progress.set_fraction(0.2 * i)
         return False
 
-    def resetProgress(self):
+    def reset_progress(self):
         """Reset progress bar
         """
         self.progress.set_fraction(0)
 
-    def planifyAndRegister(self):
+    def planify_and_register(self):
         """Call model method to planify and register students to the planified sessions
         """
         ...
@@ -282,20 +283,20 @@ class Application:
     def planify(self):
         """Planify all active sessions in the notebook
         """
-        GLib.idle_add(self.errorDialogWindow, 'Starting planification')
+        GLib.idle_add(self.error_dialog_window, 'Starting planification')
         count = 1
         for day in DAYS:
-            GLib.idle_add(self.updateProgress, count)
+            GLib.idle_add(self.update_progress, count)
             count += 1
             if self.active_days[day].get_active() == True:
-                self.planned[day] = self.intra.planify_sessions(self.getActivityUrl(), [self.dates[day]], self.getPlanningHours())
-        self.resetProgress()
-        GLib.idle_add(self.errorDialogWindow, 'Planification finished, you can now register students')
+                self.planned[day] = self.intra.planify_sessions(self.get_activity_url(), [self.dates[day]], self.get_planning_hours())
+        self.reset_progress()
+        GLib.idle_add(self.error_dialog_window, 'Planification finished, you can now register students')
 
     def register(self):
         """Register all promotions to the planified events
         """
-        GLib.idle_add(self.errorDialogWindow, 'Starting registration')
+        GLib.idle_add(self.error_dialog_window, 'Starting registration')
         count = 1
         # TODO: Look for generic function
         if self.specific_session_active.get_active():
@@ -304,11 +305,11 @@ class Application:
                 for y in self.YEARS:
                     for promo in self.specific_session[y].items():
                         if promo[1].get_active():
-                            self.intra.students_registration(self.getActivityUrl() + session, promo[0], y)
+                            self.intra.students_registration(self.get_activity_url() + session, promo[0], y)
 
         selected = {day: [] for day in DAYS}
         for day in DAYS:
-            GLib.idle_add(self.updateProgress, count)
+            GLib.idle_add(self.update_progress, count)
             count += 1
             for y in self.YEARS:
                 for promo in self.enabled_promotions[day][y].items():
@@ -317,34 +318,11 @@ class Application:
             if self.planned.get(day) != None:
                 for session in self.planned[day]:
                     for sel in selected[day]:
-                        self.intra.students_registration(self.getActivityUrl() + session, sel[1], sel[0])
+                        self.intra.students_registration(self.get_activity_url() + session, sel[1], sel[0])
 
         self.planned = {}
-        self.resetProgress()
-        GLib.idle_add(self.errorDialogWindow, 'Registration finished')
-
-
-    @staticmethod
-    def setDefaultSettings(days, day):
-        """set default settings for checkbox inside the GUI
-
-        :param days: Days of the Week
-        :type days: list[str]
-        :param day: Checkbuttons sorted by day
-        :type day: list[<Gtk.CheckButton object>]
-        """
-        for a in days:
-            day[a]['wac1'].set_active(True)
-            if a == 'Lundi':
-                day[a]['premsc'].set_active(True)
-            if a == 'Mardi':
-                day[a]['premsc'].set_active(True)
-            if a == 'Jeudi':
-                day[a]['msc1'].set_active(True)
-                day[a]['msc2'].set_active(True)
-            if a == 'Vendredi':
-                day[a]['msc1'].set_active(True)
-                day[a]['msc2'].set_active(True)
+        self.reset_progress()
+        GLib.idle_add(self.error_dialog_window, 'Registration finished')
 
 if __name__ == "__main__":
     App = Application()

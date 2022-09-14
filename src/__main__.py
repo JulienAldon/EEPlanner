@@ -4,7 +4,7 @@ import sys
 import datetime
 from constants import PROMOTIONS, ACTIVITY_URL
 from model import EventPlanner
-from intranet import Intra
+import Yawaei
 
 planified_hours = ['09:00:00', '17:00:00']
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     print(f"Event : {selected_event}")
     print(f"Formations : {selected_formations}")
 
-    t = Intra(cj)
+    t = Yawaei.intranet.AutologinIntranet(cj)
     intra = EventPlanner(t)
 
     if len(selected_event) > 0:
