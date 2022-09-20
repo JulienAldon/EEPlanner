@@ -300,7 +300,8 @@ class Application:
         count = 1
         # TODO: Look for generic function
         if self.specific_session_active.get_active():
-            specific_sessions = self.specific_session_event.get_text().split(',')
+            clean = self.specific_session_event.get_text().replace(' ', '')
+            specific_sessions = clean.split(',')
             for session in specific_sessions:
                 for y in self.YEARS:
                     for promo in self.specific_session[y].items():
