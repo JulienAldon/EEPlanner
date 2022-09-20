@@ -279,6 +279,7 @@ class Application:
         ...
         self.planify()
         self.register()
+        GLib.idle_add(self.reset_progress)
 
     def planify(self):
         """Planify all active sessions in the notebook
@@ -291,6 +292,7 @@ class Application:
             if self.active_days[day].get_active() == True:
                 self.planned[day] = self.intra.planify_sessions(self.get_activity_url(), [self.dates[day]], self.get_planning_hours())
         self.reset_progress()
+        GLib.idle_add(self.reset_progress)
         GLib.idle_add(self.error_dialog_window, 'Planification finished, you can now register students')
 
     def register(self):
@@ -322,7 +324,7 @@ class Application:
                         self.intra.students_registration(self.get_activity_url() + session, sel[1], sel[0])
 
         self.planned = {}
-        self.reset_progress()
+        GLib.idle_add(self.reset_progress)
         GLib.idle_add(self.error_dialog_window, 'Registration finished')
 
 if __name__ == "__main__":
