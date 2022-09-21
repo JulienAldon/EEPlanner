@@ -3,12 +3,11 @@ import threading
 import datetime
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
-from .model import EventPlanner
+from eeplanner.model import EventPlanner
+from eeplanner.checkers import check_autologin, check_hour_format, check_activity_format
+
 import Yawaei
 import site
-
-from .checkers import check_autologin, check_hour_format, check_activity_format
-import re
 
 DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
 FORMAT_ERROR_MESSAGE = """
