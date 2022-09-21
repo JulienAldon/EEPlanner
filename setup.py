@@ -37,7 +37,6 @@ setup(
         'pycairo',
         'pygobject',
         'glib',
-        'pgi',
         'Yawaei'
     ],
     extras_require={

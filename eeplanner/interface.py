@@ -1,8 +1,8 @@
-import pgi
+import gi
 import threading
 import datetime
-pgi.require_version("Gtk", "3.0")
-from pgi.repository import Gtk, GLib
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, GLib
 from eeplanner.model import EventPlanner
 from eeplanner.checkers import check_autologin, check_hour_format, check_activity_format
 
