@@ -8,15 +8,14 @@ requests = "*"
 pycairo = "*"
 pygobject = "*"
 glib = "*"
-cx-freeze = "*"
 pgi = "*"
 yawaei = "==0.0.4"
-
-[dev-packages]
-sphinx = "*"
+setuptools = "*"
+install = "*"
+eeplanner = {extras = ["dev"], path = "."}
 
 [requires]
 python_version = "3.9"
 
-[scripts]
-install = "sh install.sh"
+[dev-packages]
+twine = "*"

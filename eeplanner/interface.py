@@ -3,10 +3,11 @@ import threading
 import datetime
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
-from model import EventPlanner
+from .model import EventPlanner
 import Yawaei
+import site
 
-from checkers import check_autologin, check_hour_format, check_activity_format
+from .checkers import check_autologin, check_hour_format, check_activity_format
 import re
 
 DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
@@ -115,7 +116,7 @@ class Application:
     """
     def __init__(self):
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("Application2.glade")
+        self.builder.add_from_file(f'{site.USER_BASE}/share/eeplanner/Application2.glade')
         self.builder.connect_signals(Handler(self))
 
         self.window = self.builder.get_object("Window")
@@ -327,6 +328,9 @@ class Application:
         GLib.idle_add(self.reset_progress)
         GLib.idle_add(self.error_dialog_window, 'Registration finished')
 
-if __name__ == "__main__":
+def start():
     App = Application()
-    Gtk.main()
+    Gtk.main()    
+
+if __name__ == "__main__":
+    start()
