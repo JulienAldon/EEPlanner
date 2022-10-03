@@ -18,6 +18,7 @@ uninstall:
 		$(PIP) uninstall eeplanner
 		xdg-icon-resource uninstall --size 128 assets/application-eeplanner.png
 		xdg-desktop-menu uninstall application-eeplanner.desktop
+
 build:
 		rm -rf dist && $(PYTHON) setup.py sdist bdist_wheel
 

@@ -12,9 +12,6 @@ Name=eeplanner
 # A comment which can/will be used as a tooltip
 Comment=Event planner for Epitech intranet
 
-# The path to the folder in which the executable is run
-Path=/$HOME/.local/bin/eeplanner
-
 # The executable of the application, possibly with arguments.
 Exec=eeplanner
 

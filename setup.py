@@ -1,16 +1,3 @@
-# import sys
-# from cx_Freeze import setup, Executable
-
-# build_exe_options = {"packages": ['gi']}
-
-# setup(
-#     name="EpitechEventPlanner",
-#     version="2.0.1",
-#     description="Créer des event sur une activitée donnée",
-#     options={"build_exe": build_exe_options},
-#     executables=[Executable("src/interface.py", target_name="EpitechEventPlanner")],
-# )
-
 from setuptools import setup
 
 setup(
@@ -19,8 +6,8 @@ setup(
     license='',
     author='Julien Aldon',
     author_email='julien.aldon@epitech.eu',
-    description='Créer des event sur une activitée donnée',
-    url='https://github.com/JulienAldon/EpitechEventPlanner',
+    description='Créer des event pour une activitée donnée',
+    url='https://github.com/JulienAldon/EEPlanner',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Programming Language :: Python',
