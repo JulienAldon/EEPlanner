@@ -7,7 +7,14 @@ The purpose of this tool is to create repeating events under a given activity.
 ## Install (globaly)
 You must have pipenv installed before executing the makefile
 ```
-make install
+sudo make install
+```
+
+Running without sudo will not install correctly
+
+## Uninstall
+```
+sudo make uninstall
 ```
 
 ## Install (for dev)

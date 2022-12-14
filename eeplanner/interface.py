@@ -7,7 +7,6 @@ from eeplanner.model import EventPlanner
 from eeplanner.checkers import check_autologin, check_hour_format, check_activity_format
 
 import Yawaei
-import site
 
 DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
 FORMAT_ERROR_MESSAGE = """
@@ -115,7 +114,7 @@ class Application:
     """
     def __init__(self):
         self.builder = Gtk.Builder()
-        self.builder.add_from_file(f'{site.USER_BASE}/share/eeplanner/Application2.glade')
+        self.builder.add_from_file(f'/usr/share/eeplanner/Application2.glade')
         self.builder.connect_signals(Handler(self))
 
         self.window = self.builder.get_object("Window")
