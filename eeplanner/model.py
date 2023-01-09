@@ -36,5 +36,5 @@ class EventPlanner():
             return None
         res = [self.intranet.create_event(activity, date, hour) for date in dates for hour in hours]
         print(activity)
-        return self.intranet.get_events(activity, dates[0])
+        return self.intranet.get_events(activity, date=dates[0])
         
