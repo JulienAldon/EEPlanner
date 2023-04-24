@@ -3,6 +3,7 @@ Maintainer: Aldon Julien <julien.aldon@wanadoo.fr>
 Section: utils
 Priority: optional 
 Standards-Version: 2.0.1 
+Build-Depends: debhelper (>= 9), python3
 
 Package: eeplanner 
 Architecture: all 
