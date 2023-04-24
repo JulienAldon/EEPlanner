@@ -24,7 +24,7 @@ setup(
         'pycairo',
         'pygobject',
         'glib',
-        'Yawaei'
+        'Yawaei:latest'
     ],
     extras_require={
         'dev': [
