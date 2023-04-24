@@ -32,7 +32,8 @@ setup(
         ]
     },
     data_files=[
-        ('share/eeplanner', ['Application2.glade'])
+        ('lib/eeplanner', ['Application2.glade']),
+        ("share/applications", ['application-eeplanner.desktop'])
     ],
     entry_points={
         'console_scripts': [
@@ -40,3 +41,4 @@ setup(
         ]
     }
 )
+
