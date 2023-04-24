@@ -9,4 +9,4 @@ Package: eeplanner
 Architecture: all 
 Depends: python-gi 
 Description: Epitech Event Planner
-Epitech Event Planner is a tool allowing pedago to planify sign sessions on epitech intranet.
+ Epitech Event Planner is a tool to planify every sign sessions.
