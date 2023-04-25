@@ -21,7 +21,6 @@ setup(
     include_package_data=True,
     install_requires=[
         'requests',
-        'pycairo',
         'pygobject',
         'glib',
         'yawaei==0.0.7'
