@@ -7,6 +7,8 @@ from eeplanner.model import EventPlanner
 from eeplanner.checkers import check_autologin, check_hour_format, check_activity_format
 import sys
 
+import pathlib
+
 import Yawaei
 
 DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
@@ -115,7 +117,7 @@ class Application:
     """
     def __init__(self):
         self.builder = Gtk.Builder()
-        self.builder.add_from_file(f'/usr/local/lib/eeplanner/Application2.glade')
+        self.builder.add_from_file(f'{pathlib.Path.home()}/.local/lib/eeplanner/Application2.glade')
         self.builder.connect_signals(Handler(self))
 
         self.window = self.builder.get_object("Window")
