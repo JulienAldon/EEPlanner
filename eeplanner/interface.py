@@ -9,7 +9,7 @@ import sys
 
 import pathlib
 
-import Yawaei
+import yawaei
 
 DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
 FORMAT_ERROR_MESSAGE = """
@@ -126,7 +126,7 @@ class Application:
         self.progress = self.builder.get_object('Bar')
         self.intra_autologin = self.builder.get_object('IntraInput')
 
-        self.thrower = Yawaei.intranet.AutologinIntranet()
+        self.thrower = yawaei.intranet.AutologinIntranet()
         self.intra = EventPlanner(self.thrower)
 
         self.planned = {}
