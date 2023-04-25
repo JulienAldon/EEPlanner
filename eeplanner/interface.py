@@ -115,7 +115,7 @@ class Application:
     """
     def __init__(self):
         self.builder = Gtk.Builder()
-        self.builder.add_from_file(f'{sys.prefix}/local/lib/eeplanner/Application2.glade')
+        self.builder.add_from_file(f'lib/eeplanner/Application2.glade')
         self.builder.connect_signals(Handler(self))
 
         self.window = self.builder.get_object("Window")
