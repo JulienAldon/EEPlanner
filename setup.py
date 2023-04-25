@@ -1,4 +1,5 @@
 from setuptools import setup
+import sys
 
 setup(
     name='eeplanner',
@@ -32,8 +33,8 @@ setup(
         ]
     },
     data_files=[
-        ('lib/eeplanner', ['Application2.glade']),
-        ("share/applications", ['application-eeplanner.desktop'])
+        (f'{sys.prefix}/lib/eeplanner', ['Application2.glade']),
+        (f'{sys.prefix}/share/applications', ['application-eeplanner.desktop'])
     ],
     entry_points={
         'console_scripts': [
