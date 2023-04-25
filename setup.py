@@ -19,12 +19,18 @@ setup(
         'eeplanner'
     ],
     include_package_data=True,
-    install_requires=[
+    dependencies=[
         'requests',
         'pygobject',
         'glib',
         'yawaei'
     ],
+    # install_requires=[
+    #     'requests',
+    #     'pygobject',
+    #     'glib',
+    #     'yawaei'
+    # ],
     extras_require={
         'dev': [
             'twine'
