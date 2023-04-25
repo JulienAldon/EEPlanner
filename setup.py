@@ -33,8 +33,8 @@ setup(
         ]
     },
     data_files=[
-        (f'{sys.prefix}/lib/eeplanner', ['Application2.glade']),
-        (f'{sys.prefix}/share/applications', ['application-eeplanner.desktop'])
+        (f'{sys.prefix}/local/lib/eeplanner', ['Application2.glade']),
+        (f'{sys.prefix}/local/share/applications', ['application-eeplanner.desktop'])
     ],
     entry_points={
         'console_scripts': [
