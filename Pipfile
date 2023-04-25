@@ -5,10 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
-pycairo = "*"
 pygobject = "*"
 glib = "*"
-yawaei = "==0.0.4"
+yawaei = "==0.0.7"
 setuptools = "*"
 install = "*"
 eeplanner = {extras = ["dev"], path = "."}
