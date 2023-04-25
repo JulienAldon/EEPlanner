@@ -6,7 +6,7 @@ setup(
     license='',
     author='Julien Aldon',
     author_email='julien.aldon@epitech.eu',
-    description='Créer des event pour une activitée donnée',
+    description='Créer des événements pour une activitée donnée',
     url='https://github.com/JulienAldon/EEPlanner',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -24,7 +24,7 @@ setup(
         'pycairo',
         'pygobject',
         'glib',
-        'Yawaei==0.0.6'
+        'yawaei==0.0.7'
     ],
     extras_require={
         'dev': [
