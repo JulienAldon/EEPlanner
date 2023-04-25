@@ -7,7 +7,7 @@ name = "pypi"
 requests = "*"
 pygobject = "*"
 glib = "*"
-yawaei = "==0.0.7"
+yawaei = "*"
 setuptools = "*"
 install = "*"
 eeplanner = {extras = ["dev"], path = "."}

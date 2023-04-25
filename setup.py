@@ -23,7 +23,7 @@ setup(
         'requests',
         'pygobject',
         'glib',
-        'yawaei==0.0.7'
+        'yawaei'
     ],
     extras_require={
         'dev': [
