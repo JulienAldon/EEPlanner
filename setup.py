@@ -25,12 +25,6 @@ setup(
         'glib',
         'yawaei'
     ],
-    # install_requires=[
-    #     'requests',
-    #     'pygobject',
-    #     'glib',
-    #     'yawaei'
-    # ],
     extras_require={
         'dev': [
             'twine'
