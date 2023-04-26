@@ -7,6 +7,6 @@ Build-Depends: debhelper (>= 13), python3
 
 Package: eeplanner 
 Architecture: all 
-Depends: python-gi 
+Depends: python3-gi 
 Description: Epitech Event Planner
  Epitech Event Planner is a tool to planify every sign sessions.
