@@ -1,0 +1,6 @@
+EEplanner.*.debhelper
+EEplanner.substvars
+EEplanner/
+EEplanner-*/
+files
+debhelper-build-stamp

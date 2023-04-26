@@ -1,0 +1,14 @@
+{
+    "_output_dir": "/home/julien/Entreprises/Epitech/Projets/EEPlanner",
+    "_template": "https://github.com/Springerle/dh-virtualenv-mold.git",
+    "distro": "Ubuntu",
+    "email": "julien.aldon@epitech.eu",
+    "full_name": "Julien Aldon",
+    "package": "EEplanner",
+    "repo_name": "debian",
+    "short_description": "Epitech Event Planner",
+    "snake": "/usr/bin/python3",
+    "url": "https://github.com/JulienAldon/EEPlanner",
+    "version": "2.0.1",
+    "year": "2023"
+}
