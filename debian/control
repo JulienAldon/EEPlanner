@@ -1,4 +1,4 @@
-Source: EEplanner
+Source: eeplanner
 Section: contrib/python
 Priority: extra
 Maintainer: Julien Aldon <julien.aldon@epitech.eu>
@@ -6,13 +6,13 @@ Build-Depends: debhelper (>= 9), python3, python3-venv, python3-dev, dh-virtuale
 Standards-Version: 3.9.5
 Homepage: https://github.com/JulienAldon/EEPlanner
 
-Package: EEplanner
+Package: eeplanner
 Architecture: any
 Pre-Depends: dpkg (>= 1.16.1), python3, python3-venv, ${misc:Pre-Depends}
 Depends: ${python:Depends}, ${misc:Depends}
 Description: Epitech Event Planner
     .
-    This is a distribution of "EEplanner" as a self-contained
+    This is a distribution of "eeplanner" as a self-contained
     Python virtualenv wrapped into a Debian package ("omnibus" package,
     all passengers on board). The packaged virtualenv is kept in sync with
     the host's interpreter automatically.

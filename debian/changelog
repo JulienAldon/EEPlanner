@@ -1,5 +1,5 @@
-EEplanner (2.0.1) Ubuntu; urgency=low
+eeplanner (2.0.1) Ubuntu; urgency=low
 
-  * EEplanner: Initial debian packaging
+  * eeplanner: Initial debian packaging
 
  -- Julien Aldon <julien.aldon@epitech.eu> Day, 01 Jan 2014 12:34:56 +0000

@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# "EEplanner" postinst script
+# "eeplanner" postinst script
 #
 set -e
 

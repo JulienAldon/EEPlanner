@@ -1,6 +1,6 @@
-EEplanner.*.debhelper
-EEplanner.substvars
-EEplanner/
-EEplanner-*/
+eeplanner.*.debhelper
+eeplanner.substvars
+eeplanner/
+eeplanner-*/
 files
 debhelper-build-stamp
