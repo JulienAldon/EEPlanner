@@ -40,7 +40,7 @@ build-arch:
 	dh $@ $(DH_VENV_ARGS) --sourcedir $(SDIST_DIR)
 
 %:
-	dh $@ --with python-virtualenv --sourcedir $(SDIST_DIR)
+	dh $@ --buildsystem=pybuild --with python3 $(DH_VENV_ARGS)
 
 override_dh_virtualenv:
 	dh_virtualenv $(DH_VENV_ARGS)
