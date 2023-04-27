@@ -13,8 +13,6 @@ Depends: ${python:Depends}, ${misc:Depends}
 Description: Epitech Event Planner
     .
     This is a distribution of "eeplanner" as a self-contained
-    Python virtualenv wrapped into a Debian package ("omnibus" package,
-    all passengers on board). The packaged virtualenv is kept in sync with
-    the host's interpreter automatically.
+    Python virtualenv wrapped into a Debian package.
     .
     See https://github.com/spotify/dh-virtualenv for more details.
