@@ -6,6 +6,7 @@ from gi.repository import Gtk, GLib
 from eeplanner.model import EventPlanner
 from eeplanner.checkers import check_autologin, check_hour_format, check_activity_format
 import sys
+import os
 
 import pathlib
 
