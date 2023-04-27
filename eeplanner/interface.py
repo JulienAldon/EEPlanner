@@ -117,6 +117,7 @@ class Application:
     """
     def __init__(self):
         self.builder = Gtk.Builder()
+        print(os.path.abspath(os.path.dirname(__file__)))
         self.builder.add_from_file(f'{pathlib.Path.home()}/.local/lib/eeplanner/Application2.glade')
         self.builder.connect_signals(Handler(self))
 
