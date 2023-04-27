@@ -120,7 +120,6 @@ class Application:
         self.builder = Gtk.Builder()
         b = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
         app_path = "/".join(b.parts[0:b.parts.index('lib')])[1:]
-        print(app_path)
         self.builder.add_from_file(f'{app_path}/lib/eeplanner/Application2.glade')
         self.builder.connect_signals(Handler(self))
 
