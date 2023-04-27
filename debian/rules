@@ -1,8 +1,20 @@
 #!/usr/bin/make -f
+#
+# Build Debian package using https://github.com/spotify/dh-virtualenv
+#
+# The below targets create a clean copy of the workdir via
+# using "sdist", else "pip" goes haywire when installing from
+# sourcedir ".", because that includes the debian build stage,
+# and a recursive explosion ensues when symlinks are followed.
+#
+# It also ensures your MANIFEST is complete and at least covers
+# all files needed for a release build.
 
-export PYBUILD_NAME=mylib
-export PYBUILD_SYSTEM=distutils
-export PYBUILD_DISABLE=test
+# Increase trace logging, see debhelper(7) (uncomment to enable)
+DH_VERBOSE=1
 
 %:
-    dh $@ --with python3 --buildsystem=pybuild
+	dh $@ --buildsystem=pybuild
+
+override_dh_auto_test:
+
