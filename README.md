@@ -17,6 +17,11 @@ sudo dpkg -i eeplanner_<version>_amd64.deb
 ### Archlinux
 A PKGBUILD file is available in the repository, you can build it.
 
+```
+makepkg -si
+sudo pacman -U <package_created>.pkg.tar.zst
+```
+
 ### (globaly using pip)
 You must have pipenv installed before executing the makefile
 ```
