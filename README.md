@@ -4,7 +4,20 @@ The purpose of this tool is to create repeating events under a given activity.
 
 ![How does it look ?](assets/img.png "Example")
 
-## Install (globaly)
+## Install 
+### Debian
+A complete debian build system is available in the repository.
+
+You can get the .deb packages in releases section
+
+```
+sudo dpkg -i eeplanner_<version>_amd64.deb
+```
+
+### Archlinux
+A PKGBUILD file is available in the repository, you can build it.
+
+### (globaly using pip)
 You must have pipenv installed before executing the makefile
 ```
 sudo make install
