@@ -10,7 +10,7 @@ usage:
 		@echo "    make deploy_test     # Upload source distribution archives to test.pypi.org"
 
 install:
-		$(PIP) install . --target /usr
+		$(PIP) install .
 		xdg-icon-resource install --size 128 assets/application-eeplanner.png
 		xdg-desktop-menu install application-eeplanner.desktop
 

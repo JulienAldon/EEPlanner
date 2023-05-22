@@ -5,7 +5,7 @@
 
 # Maintainer: Julien Adlon <julien.aldon@epitech.eu>
 pkgname=eeplanner-git
-pkgver=149.e766805
+pkgver=151.b1be485
 pkgrel=1
 epoch=
 pkgdesc="Epitech Event planner tool"

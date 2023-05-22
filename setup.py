@@ -19,7 +19,7 @@ setup(
         'eeplanner'
     ],
     include_package_data=True,
-    dependencies=[
+    install_requires=[
         'requests',
         'pygobject',
         'glib',
